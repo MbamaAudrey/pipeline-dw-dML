@@ -1,5 +1,0 @@
-2026-02-05 00:18:58,538 - __main__ - INFO - ================================================================================
-2026-02-05 00:18:58,539 - __main__ - INFO - 🚀 DÉMARRAGE DU PIPELINE ETL
-2026-02-05 00:18:58,539 - __main__ - INFO - ================================================================================
-2026-02-05 00:18:58,539 - __main__ - INFO - 📥 [EXTRACT] Début de l'extraction des données source...
-2026-02-05 00:18:58,539 - ETL.extract.extract_source - INFO - Connexion à la base source: localhost:5433/source_db
