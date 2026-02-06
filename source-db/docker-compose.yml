@@ -1,0 +1,64 @@
+services:
+  source-postgres:
+    container_name: source-postgres
+    image: postgres:15
+    environment:
+      POSTGRES_DB: source_db
+      POSTGRES_USER: source_user
+      POSTGRES_PASSWORD: source_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - source_pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U source_user -d source_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  dw-postgres:
+    image: postgres:15
+    container_name: dw-postgres
+    environment:
+      POSTGRES_DB: dw_db
+      POSTGRES_USER: dw_user
+      POSTGRES_PASSWORD: dw_password
+    ports:
+      - "5434:5432"
+    volumes:
+      - dw_pgdata:/var/lib/postgresql/data
+      - ./dw-init:/docker-entrypoint-initdb.d
+    shm_size: 1g
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dw_user -d dw_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  flyway:
+    image: flyway/flyway:10
+    depends_on:
+      source-postgres:
+        condition: service_healthy
+    environment:
+      FLYWAY_URL: jdbc:postgresql://source-postgres:5432/source_db
+      FLYWAY_USER: source_user
+      FLYWAY_PASSWORD: source_password
+      FLYWAY_CONNECT_RETRIES: 60
+      FLYWAY_LOCATIONS: filesystem:/flyway/sql
+    command: migrate
+    volumes:
+      - ./migrations:/flyway/sql:ro
+    restart: "no"
+
+volumes:
+  source_pgdata:
+  nifi_data:
+  nifi_state:
+  nifi_database_repository:
+  nifi_flowfile_repository:
+  nifi_content_repository:
+  nifi_provenance_repository:
+  dw_pgdata:

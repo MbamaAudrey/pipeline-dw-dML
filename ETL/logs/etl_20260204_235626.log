@@ -1,0 +1,32 @@
+2026-02-04 23:56:26,086 - __main__ - INFO - ================================================================================
+2026-02-04 23:56:26,086 - __main__ - INFO - 🚀 DÉMARRAGE DU PIPELINE ETL
+2026-02-04 23:56:26,086 - __main__ - INFO - ================================================================================
+2026-02-04 23:56:26,086 - __main__ - INFO - 📥 [EXTRACT] Début de l'extraction des données source...
+2026-02-04 23:56:26,086 - ETL.extract.extract_source - INFO - Connexion à la base source: localhost:5433/source_db
+2026-02-04 23:57:18,706 - ETL.extract.extract_source - INFO - ✅ Extraction réussie: 6,365,077 lignes, 13 colonnes
+2026-02-04 23:57:18,709 - __main__ - INFO - ✅ [EXTRACT] 6,365,077 transactions extraites avec succès
+2026-02-04 23:57:18,709 - __main__ - INFO - 🔄 [TRANSFORM] Début de la transformation des données...
+2026-02-04 23:57:18,709 - __main__ - INFO -   → Nettoyage des données...
+2026-02-04 23:57:47,950 - ETL.transform.clean - INFO -   → Doublons supprimés: 0 lignes
+2026-02-04 23:57:49,731 - ETL.transform.clean - INFO -   → Valeurs nulles remplacées: 0 valeurs
+2026-02-04 23:57:52,322 - ETL.transform.clean - INFO -   → Réduction: 0 lignes supprimées (0.00%)
+2026-02-04 23:57:52,322 - __main__ - INFO -   ✅ Nettoyage terminé: 6,365,077 → 6,365,077 lignes (doublons supprimés)
+2026-02-04 23:57:52,322 - __main__ - INFO -   → Standardisation des colonnes...
+2026-02-04 23:57:52,325 - ETL.transform.standardize - INFO -   → Colonnes renommées: 0 colonnes
+2026-02-04 23:57:52,325 - __main__ - INFO -   ✅ Standardisation terminée: 13 colonnes
+2026-02-04 23:57:52,325 - __main__ - INFO -   → Validation des données...
+2026-02-04 23:57:52,330 - ETL.transform.validate - INFO -   → Validation montants: 6,365,077 montants valides (>= 0)
+2026-02-04 23:57:52,488 - ETL.transform.validate - INFO -   → Validation origin_account: 6,365,077 comptes valides
+2026-02-04 23:57:52,637 - ETL.transform.validate - INFO -   → Validation destination_account: 6,365,077 comptes valides
+2026-02-04 23:57:52,637 - __main__ - INFO -   ✅ Validation réussie: toutes les données sont valides
+2026-02-04 23:57:52,637 - __main__ - INFO - ✅ [TRANSFORM] Transformation terminée: 6,365,077 lignes prêtes pour le chargement
+2026-02-04 23:57:52,637 - __main__ - INFO - 📤 [LOAD] Début du chargement dans le Data Warehouse...
+2026-02-04 23:57:52,637 - __main__ - INFO -   → Chargement de dim_transaction_type...
+2026-02-04 23:57:52,637 - ETL.load.load_dim_transaction_type - INFO - Connexion au DW: localhost:5434/dw_db
+2026-02-04 23:57:53,565 - ETL.load.load_dim_transaction_type - INFO -   → 5 types de transactions uniques à charger: ['PAYMENT', 'CASH_IN', 'CASH_OUT', 'TRANSFER', 'DEBIT']
+2026-02-04 23:57:53,589 - ETL.load.load_dim_transaction_type - INFO -   ✅ 5 types de transactions chargés dans dim_transaction_type
+2026-02-04 23:57:53,590 - __main__ - INFO -   ✅ dim_transaction_type chargé
+2026-02-04 23:57:53,590 - __main__ - INFO -   → Chargement de dim_account...
+2026-02-04 23:57:53,590 - ETL.load.load_dim_account - INFO - → Chargement de dim_account...
+2026-02-04 23:57:58,194 - ETL.load.load_dim_account - INFO -   → 6,353,307 comptes d'origine, 2,722,362 comptes de destination
+2026-02-04 23:57:58,194 - ETL.load.load_dim_account - INFO -   → 10 comptes uniques à charger (test limité)

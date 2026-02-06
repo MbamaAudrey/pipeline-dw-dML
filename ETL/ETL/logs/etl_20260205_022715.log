@@ -1,0 +1,821 @@
+2026-02-05 02:27:15,787 - __main__ - INFO - ================================================================================
+2026-02-05 02:27:15,787 - __main__ - INFO - 🚀 DÉMARRAGE DU PIPELINE ETL
+2026-02-05 02:27:15,788 - __main__ - INFO - ================================================================================
+2026-02-05 02:27:15,788 - __main__ - INFO - 📥 [EXTRACT] Début de l'extraction des données source...
+2026-02-05 02:27:15,788 - ETL.extract.extract_source - INFO - Connexion à la base source: localhost:5433/source_db
+2026-02-05 02:28:01,653 - ETL.extract.extract_source - INFO - ✅ Extraction réussie: 6,362,620 lignes, 13 colonnes
+2026-02-05 02:28:01,657 - __main__ - INFO - ✅ [EXTRACT] 6,362,620 transactions extraites avec succès
+2026-02-05 02:28:01,657 - __main__ - INFO - 🔄 [TRANSFORM] Début de la transformation des données...
+2026-02-05 02:28:01,657 - __main__ - INFO -   → Nettoyage des données...
+2026-02-05 02:28:21,339 - ETL.transform.clean - INFO -   → Doublons supprimés: 0 lignes
+2026-02-05 02:28:22,766 - ETL.transform.clean - INFO -   → Valeurs nulles remplacées: 0 valeurs
+2026-02-05 02:28:25,286 - ETL.transform.clean - INFO -   → Réduction: 0 lignes supprimées (0.00%)
+2026-02-05 02:28:25,286 - __main__ - INFO -   ✅ Nettoyage terminé: 6,362,620 → 6,362,620 lignes (doublons supprimés)
+2026-02-05 02:28:25,286 - __main__ - INFO -   → Standardisation des colonnes...
+2026-02-05 02:28:25,288 - ETL.transform.standardize - INFO -   → Colonnes renommées: 0 colonnes
+2026-02-05 02:28:25,288 - __main__ - INFO -   ✅ Standardisation terminée: 13 colonnes
+2026-02-05 02:28:25,288 - __main__ - INFO -   → Validation des données...
+2026-02-05 02:28:25,293 - ETL.transform.validate - INFO -   → Validation montants: 6,362,620 montants valides (>= 0)
+2026-02-05 02:28:25,436 - ETL.transform.validate - INFO -   → Validation origin_account: 6,362,620 comptes valides
+2026-02-05 02:28:25,579 - ETL.transform.validate - INFO -   → Validation destination_account: 6,362,620 comptes valides
+2026-02-05 02:28:25,579 - __main__ - INFO -   ✅ Validation réussie: toutes les données sont valides
+2026-02-05 02:28:25,579 - __main__ - INFO - ✅ [TRANSFORM] Transformation terminée: 6,362,620 lignes prêtes pour le chargement
+2026-02-05 02:28:25,579 - __main__ - INFO - 📤 [LOAD] Début du chargement dans le Data Warehouse...
+2026-02-05 02:28:25,579 - __main__ - INFO -   → Chargement de dim_transaction_type...
+2026-02-05 02:28:25,579 - ETL.load.load_dim_transaction_type - INFO - Connexion au DW: localhost:5434/dw_db
+2026-02-05 02:28:26,547 - ETL.load.load_dim_transaction_type - INFO -   → 5 types de transactions uniques à charger: ['TRANSFER', 'PAYMENT', 'CASH_OUT', 'DEBIT', 'CASH_IN']
+2026-02-05 02:28:26,562 - ETL.load.load_dim_transaction_type - INFO -   ✅ 5 types de transactions chargés dans dim_transaction_type
+2026-02-05 02:28:26,562 - __main__ - INFO -   ✅ dim_transaction_type chargé
+2026-02-05 02:28:26,562 - __main__ - INFO -   → Chargement de dim_account...
+2026-02-05 02:28:26,562 - ETL.load.load_dim_account - INFO - → Chargement de dim_account (mode flux : pas de liste complète en mémoire)...
+2026-02-05 02:28:26,569 - ETL.load.load_dim_account - INFO -   → 6,362,620 lignes → 128 chunks de 50,000 lignes
+2026-02-05 02:28:52,260 - ETL.load.load_dim_account - INFO -   ✅ Chunk 1/128 (lignes 0-50,000) — 79,572 comptes uniques dans ce chunk
+2026-02-05 02:29:14,224 - ETL.load.load_dim_account - INFO -   ✅ Chunk 2/128 (lignes 50,000-100,000) — 78,632 comptes uniques dans ce chunk
+2026-02-05 02:29:37,932 - ETL.load.load_dim_account - INFO -   ✅ Chunk 3/128 (lignes 100,000-150,000) — 81,738 comptes uniques dans ce chunk
+2026-02-05 02:30:02,914 - ETL.load.load_dim_account - INFO -   ✅ Chunk 4/128 (lignes 150,000-200,000) — 83,530 comptes uniques dans ce chunk
+2026-02-05 02:30:28,301 - ETL.load.load_dim_account - INFO -   ✅ Chunk 5/128 (lignes 200,000-250,000) — 84,726 comptes uniques dans ce chunk
+2026-02-05 02:30:53,464 - ETL.load.load_dim_account - INFO -   ✅ Chunk 6/128 (lignes 250,000-300,000) — 85,700 comptes uniques dans ce chunk
+2026-02-05 02:31:19,201 - ETL.load.load_dim_account - INFO -   ✅ Chunk 7/128 (lignes 300,000-350,000) — 87,591 comptes uniques dans ce chunk
+2026-02-05 02:31:45,462 - ETL.load.load_dim_account - INFO -   ✅ Chunk 8/128 (lignes 350,000-400,000) — 88,842 comptes uniques dans ce chunk
+2026-02-05 02:32:12,185 - ETL.load.load_dim_account - INFO -   ✅ Chunk 9/128 (lignes 400,000-450,000) — 89,960 comptes uniques dans ce chunk
+2026-02-05 02:32:38,749 - ETL.load.load_dim_account - INFO -   ✅ Chunk 10/128 (lignes 450,000-500,000) — 90,292 comptes uniques dans ce chunk
+2026-02-05 02:33:05,906 - ETL.load.load_dim_account - INFO -   ✅ Chunk 11/128 (lignes 500,000-550,000) — 91,747 comptes uniques dans ce chunk
+2026-02-05 02:33:33,677 - ETL.load.load_dim_account - INFO -   ✅ Chunk 12/128 (lignes 550,000-600,000) — 93,482 comptes uniques dans ce chunk
+2026-02-05 02:34:00,805 - ETL.load.load_dim_account - INFO -   ✅ Chunk 13/128 (lignes 600,000-650,000) — 92,065 comptes uniques dans ce chunk
+2026-02-05 02:34:28,103 - ETL.load.load_dim_account - INFO -   ✅ Chunk 14/128 (lignes 650,000-700,000) — 92,249 comptes uniques dans ce chunk
+2026-02-05 02:34:55,688 - ETL.load.load_dim_account - INFO -   ✅ Chunk 15/128 (lignes 700,000-750,000) — 92,909 comptes uniques dans ce chunk
+2026-02-05 02:35:23,262 - ETL.load.load_dim_account - INFO -   ✅ Chunk 16/128 (lignes 750,000-800,000) — 93,117 comptes uniques dans ce chunk
+2026-02-05 02:35:51,344 - ETL.load.load_dim_account - INFO -   ✅ Chunk 17/128 (lignes 800,000-850,000) — 93,671 comptes uniques dans ce chunk
+2026-02-05 02:36:19,133 - ETL.load.load_dim_account - INFO -   ✅ Chunk 18/128 (lignes 850,000-900,000) — 93,661 comptes uniques dans ce chunk
+2026-02-05 02:36:47,527 - ETL.load.load_dim_account - INFO -   ✅ Chunk 19/128 (lignes 900,000-950,000) — 94,133 comptes uniques dans ce chunk
+2026-02-05 02:37:16,092 - ETL.load.load_dim_account - INFO -   ✅ Chunk 20/128 (lignes 950,000-1,000,000) — 95,256 comptes uniques dans ce chunk
+2026-02-05 02:37:45,327 - ETL.load.load_dim_account - INFO -   ✅ Chunk 21/128 (lignes 1,000,000-1,050,000) — 96,687 comptes uniques dans ce chunk
+2026-02-05 02:38:14,114 - ETL.load.load_dim_account - INFO -   ✅ Chunk 22/128 (lignes 1,050,000-1,100,000) — 95,999 comptes uniques dans ce chunk
+2026-02-05 02:38:42,684 - ETL.load.load_dim_account - INFO -   ✅ Chunk 23/128 (lignes 1,100,000-1,150,000) — 94,912 comptes uniques dans ce chunk
+2026-02-05 02:39:10,989 - ETL.load.load_dim_account - INFO -   ✅ Chunk 24/128 (lignes 1,150,000-1,200,000) — 95,071 comptes uniques dans ce chunk
+2026-02-05 02:39:39,144 - ETL.load.load_dim_account - INFO -   ✅ Chunk 25/128 (lignes 1,200,000-1,250,000) — 95,449 comptes uniques dans ce chunk
+2026-02-05 02:40:08,136 - ETL.load.load_dim_account - INFO -   ✅ Chunk 26/128 (lignes 1,250,000-1,300,000) — 95,336 comptes uniques dans ce chunk
+2026-02-05 02:40:37,071 - ETL.load.load_dim_account - INFO -   ✅ Chunk 27/128 (lignes 1,300,000-1,350,000) — 95,464 comptes uniques dans ce chunk
+2026-02-05 02:41:05,565 - ETL.load.load_dim_account - INFO -   ✅ Chunk 28/128 (lignes 1,350,000-1,400,000) — 95,865 comptes uniques dans ce chunk
+2026-02-05 02:41:34,005 - ETL.load.load_dim_account - INFO -   ✅ Chunk 29/128 (lignes 1,400,000-1,450,000) — 96,011 comptes uniques dans ce chunk
+2026-02-05 02:42:02,772 - ETL.load.load_dim_account - INFO -   ✅ Chunk 30/128 (lignes 1,450,000-1,500,000) — 96,738 comptes uniques dans ce chunk
+2026-02-05 02:42:31,653 - ETL.load.load_dim_account - INFO -   ✅ Chunk 31/128 (lignes 1,500,000-1,550,000) — 96,682 comptes uniques dans ce chunk
+2026-02-05 02:43:00,450 - ETL.load.load_dim_account - INFO -   ✅ Chunk 32/128 (lignes 1,550,000-1,600,000) — 96,360 comptes uniques dans ce chunk
+2026-02-05 02:43:29,203 - ETL.load.load_dim_account - INFO -   ✅ Chunk 33/128 (lignes 1,600,000-1,650,000) — 96,451 comptes uniques dans ce chunk
+2026-02-05 02:43:58,083 - ETL.load.load_dim_account - INFO -   ✅ Chunk 34/128 (lignes 1,650,000-1,700,000) — 96,506 comptes uniques dans ce chunk
+2026-02-05 02:44:27,254 - ETL.load.load_dim_account - INFO -   ✅ Chunk 35/128 (lignes 1,700,000-1,750,000) — 96,578 comptes uniques dans ce chunk
+2026-02-05 02:44:56,070 - ETL.load.load_dim_account - INFO -   ✅ Chunk 36/128 (lignes 1,750,000-1,800,000) — 96,591 comptes uniques dans ce chunk
+2026-02-05 02:45:24,997 - ETL.load.load_dim_account - INFO -   ✅ Chunk 37/128 (lignes 1,800,000-1,850,000) — 96,660 comptes uniques dans ce chunk
+2026-02-05 02:45:54,489 - ETL.load.load_dim_account - INFO -   ✅ Chunk 38/128 (lignes 1,850,000-1,900,000) — 97,118 comptes uniques dans ce chunk
+2026-02-05 02:46:25,118 - ETL.load.load_dim_account - INFO -   ✅ Chunk 39/128 (lignes 1,900,000-1,950,000) — 97,816 comptes uniques dans ce chunk
+2026-02-05 02:46:54,979 - ETL.load.load_dim_account - INFO -   ✅ Chunk 40/128 (lignes 1,950,000-2,000,000) — 97,025 comptes uniques dans ce chunk
+2026-02-05 02:47:25,089 - ETL.load.load_dim_account - INFO -   ✅ Chunk 41/128 (lignes 2,000,000-2,050,000) — 96,970 comptes uniques dans ce chunk
+2026-02-05 02:47:54,529 - ETL.load.load_dim_account - INFO -   ✅ Chunk 42/128 (lignes 2,050,000-2,100,000) — 97,139 comptes uniques dans ce chunk
+2026-02-05 02:48:24,040 - ETL.load.load_dim_account - INFO -   ✅ Chunk 43/128 (lignes 2,100,000-2,150,000) — 97,230 comptes uniques dans ce chunk
+2026-02-05 02:48:53,637 - ETL.load.load_dim_account - INFO -   ✅ Chunk 44/128 (lignes 2,150,000-2,200,000) — 97,188 comptes uniques dans ce chunk
+2026-02-05 02:49:23,578 - ETL.load.load_dim_account - INFO -   ✅ Chunk 45/128 (lignes 2,200,000-2,250,000) — 97,194 comptes uniques dans ce chunk
+2026-02-05 02:49:53,727 - ETL.load.load_dim_account - INFO -   ✅ Chunk 46/128 (lignes 2,250,000-2,300,000) — 97,338 comptes uniques dans ce chunk
+2026-02-05 02:50:24,575 - ETL.load.load_dim_account - INFO -   ✅ Chunk 47/128 (lignes 2,300,000-2,350,000) — 97,758 comptes uniques dans ce chunk
+2026-02-05 02:50:54,630 - ETL.load.load_dim_account - INFO -   ✅ Chunk 48/128 (lignes 2,350,000-2,400,000) — 98,250 comptes uniques dans ce chunk
+2026-02-05 02:51:24,942 - ETL.load.load_dim_account - INFO -   ✅ Chunk 49/128 (lignes 2,400,000-2,450,000) — 97,567 comptes uniques dans ce chunk
+2026-02-05 02:51:54,765 - ETL.load.load_dim_account - INFO -   ✅ Chunk 50/128 (lignes 2,450,000-2,500,000) — 97,587 comptes uniques dans ce chunk
+2026-02-05 02:52:25,206 - ETL.load.load_dim_account - INFO -   ✅ Chunk 51/128 (lignes 2,500,000-2,550,000) — 97,681 comptes uniques dans ce chunk
+2026-02-05 02:52:55,493 - ETL.load.load_dim_account - INFO -   ✅ Chunk 52/128 (lignes 2,550,000-2,600,000) — 97,679 comptes uniques dans ce chunk
+2026-02-05 02:53:25,588 - ETL.load.load_dim_account - INFO -   ✅ Chunk 53/128 (lignes 2,600,000-2,650,000) — 97,782 comptes uniques dans ce chunk
+2026-02-05 02:53:55,673 - ETL.load.load_dim_account - INFO -   ✅ Chunk 54/128 (lignes 2,650,000-2,700,000) — 97,836 comptes uniques dans ce chunk
+2026-02-05 02:54:26,417 - ETL.load.load_dim_account - INFO -   ✅ Chunk 55/128 (lignes 2,700,000-2,750,000) — 97,946 comptes uniques dans ce chunk
+2026-02-05 02:54:56,585 - ETL.load.load_dim_account - INFO -   ✅ Chunk 56/128 (lignes 2,750,000-2,800,000) — 98,558 comptes uniques dans ce chunk
+2026-02-05 02:55:26,900 - ETL.load.load_dim_account - INFO -   ✅ Chunk 57/128 (lignes 2,800,000-2,850,000) — 97,919 comptes uniques dans ce chunk
+2026-02-05 02:55:57,091 - ETL.load.load_dim_account - INFO -   ✅ Chunk 58/128 (lignes 2,850,000-2,900,000) — 97,805 comptes uniques dans ce chunk
+2026-02-05 02:56:27,919 - ETL.load.load_dim_account - INFO -   ✅ Chunk 59/128 (lignes 2,900,000-2,950,000) — 97,897 comptes uniques dans ce chunk
+2026-02-05 02:56:58,551 - ETL.load.load_dim_account - INFO -   ✅ Chunk 60/128 (lignes 2,950,000-3,000,000) — 97,928 comptes uniques dans ce chunk
+2026-02-05 02:57:29,612 - ETL.load.load_dim_account - INFO -   ✅ Chunk 61/128 (lignes 3,000,000-3,050,000) — 97,929 comptes uniques dans ce chunk
+2026-02-05 02:58:00,218 - ETL.load.load_dim_account - INFO -   ✅ Chunk 62/128 (lignes 3,050,000-3,100,000) — 97,982 comptes uniques dans ce chunk
+2026-02-05 02:58:32,351 - ETL.load.load_dim_account - INFO -   ✅ Chunk 63/128 (lignes 3,100,000-3,150,000) — 98,132 comptes uniques dans ce chunk
+2026-02-05 02:59:03,300 - ETL.load.load_dim_account - INFO -   ✅ Chunk 64/128 (lignes 3,150,000-3,200,000) — 98,746 comptes uniques dans ce chunk
+2026-02-05 02:59:33,577 - ETL.load.load_dim_account - INFO -   ✅ Chunk 65/128 (lignes 3,200,000-3,250,000) — 98,102 comptes uniques dans ce chunk
+2026-02-05 03:00:04,225 - ETL.load.load_dim_account - INFO -   ✅ Chunk 66/128 (lignes 3,250,000-3,300,000) — 98,209 comptes uniques dans ce chunk
+2026-02-05 03:00:35,287 - ETL.load.load_dim_account - INFO -   ✅ Chunk 67/128 (lignes 3,300,000-3,350,000) — 98,180 comptes uniques dans ce chunk
+2026-02-05 03:01:05,506 - ETL.load.load_dim_account - INFO -   ✅ Chunk 68/128 (lignes 3,350,000-3,400,000) — 98,206 comptes uniques dans ce chunk
+2026-02-05 03:01:35,895 - ETL.load.load_dim_account - INFO -   ✅ Chunk 69/128 (lignes 3,400,000-3,450,000) — 98,230 comptes uniques dans ce chunk
+2026-02-05 03:02:06,511 - ETL.load.load_dim_account - INFO -   ✅ Chunk 70/128 (lignes 3,450,000-3,500,000) — 98,280 comptes uniques dans ce chunk
+2026-02-05 03:02:38,102 - ETL.load.load_dim_account - INFO -   ✅ Chunk 71/128 (lignes 3,500,000-3,550,000) — 98,333 comptes uniques dans ce chunk
+2026-02-05 03:03:09,617 - ETL.load.load_dim_account - INFO -   ✅ Chunk 72/128 (lignes 3,550,000-3,600,000) — 98,684 comptes uniques dans ce chunk
+2026-02-05 03:03:41,601 - ETL.load.load_dim_account - INFO -   ✅ Chunk 73/128 (lignes 3,600,000-3,650,000) — 98,575 comptes uniques dans ce chunk
+2026-02-05 03:04:12,677 - ETL.load.load_dim_account - INFO -   ✅ Chunk 74/128 (lignes 3,650,000-3,700,000) — 98,370 comptes uniques dans ce chunk
+2026-02-05 03:04:44,247 - ETL.load.load_dim_account - INFO -   ✅ Chunk 75/128 (lignes 3,700,000-3,750,000) — 98,474 comptes uniques dans ce chunk
+2026-02-05 03:05:18,333 - ETL.load.load_dim_account - INFO -   ✅ Chunk 76/128 (lignes 3,750,000-3,800,000) — 98,459 comptes uniques dans ce chunk
+2026-02-05 03:05:48,581 - ETL.load.load_dim_account - INFO -   ✅ Chunk 77/128 (lignes 3,800,000-3,850,000) — 98,452 comptes uniques dans ce chunk
+2026-02-05 03:06:18,872 - ETL.load.load_dim_account - INFO -   ✅ Chunk 78/128 (lignes 3,850,000-3,900,000) — 98,512 comptes uniques dans ce chunk
+2026-02-05 03:06:48,834 - ETL.load.load_dim_account - INFO -   ✅ Chunk 79/128 (lignes 3,900,000-3,950,000) — 98,800 comptes uniques dans ce chunk
+2026-02-05 03:07:19,154 - ETL.load.load_dim_account - INFO -   ✅ Chunk 80/128 (lignes 3,950,000-4,000,000) — 98,604 comptes uniques dans ce chunk
+2026-02-05 03:07:49,579 - ETL.load.load_dim_account - INFO -   ✅ Chunk 81/128 (lignes 4,000,000-4,050,000) — 98,480 comptes uniques dans ce chunk
+2026-02-05 03:08:20,947 - ETL.load.load_dim_account - INFO -   ✅ Chunk 82/128 (lignes 4,050,000-4,100,000) — 98,435 comptes uniques dans ce chunk
+2026-02-05 03:08:51,034 - ETL.load.load_dim_account - INFO -   ✅ Chunk 83/128 (lignes 4,100,000-4,150,000) — 98,476 comptes uniques dans ce chunk
+2026-02-05 03:09:20,400 - ETL.load.load_dim_account - INFO -   ✅ Chunk 84/128 (lignes 4,150,000-4,200,000) — 96,842 comptes uniques dans ce chunk
+2026-02-05 03:09:50,707 - ETL.load.load_dim_account - INFO -   ✅ Chunk 85/128 (lignes 4,200,000-4,250,000) — 98,114 comptes uniques dans ce chunk
+2026-02-05 03:10:22,228 - ETL.load.load_dim_account - INFO -   ✅ Chunk 86/128 (lignes 4,250,000-4,300,000) — 98,531 comptes uniques dans ce chunk
+2026-02-05 03:10:53,105 - ETL.load.load_dim_account - INFO -   ✅ Chunk 87/128 (lignes 4,300,000-4,350,000) — 98,674 comptes uniques dans ce chunk
+2026-02-05 03:11:23,358 - ETL.load.load_dim_account - INFO -   ✅ Chunk 88/128 (lignes 4,350,000-4,400,000) — 99,008 comptes uniques dans ce chunk
+2026-02-05 03:11:53,729 - ETL.load.load_dim_account - INFO -   ✅ Chunk 89/128 (lignes 4,400,000-4,450,000) — 98,601 comptes uniques dans ce chunk
+2026-02-05 03:12:24,455 - ETL.load.load_dim_account - INFO -   ✅ Chunk 90/128 (lignes 4,450,000-4,500,000) — 98,558 comptes uniques dans ce chunk
+2026-02-05 03:12:54,691 - ETL.load.load_dim_account - INFO -   ✅ Chunk 91/128 (lignes 4,500,000-4,550,000) — 98,542 comptes uniques dans ce chunk
+2026-02-05 03:13:25,626 - ETL.load.load_dim_account - INFO -   ✅ Chunk 92/128 (lignes 4,550,000-4,600,000) — 97,896 comptes uniques dans ce chunk
+2026-02-05 03:13:56,097 - ETL.load.load_dim_account - INFO -   ✅ Chunk 93/128 (lignes 4,600,000-4,650,000) — 98,575 comptes uniques dans ce chunk
+2026-02-05 03:14:27,003 - ETL.load.load_dim_account - INFO -   ✅ Chunk 94/128 (lignes 4,650,000-4,700,000) — 98,657 comptes uniques dans ce chunk
+2026-02-05 03:14:57,845 - ETL.load.load_dim_account - INFO -   ✅ Chunk 95/128 (lignes 4,700,000-4,750,000) — 98,850 comptes uniques dans ce chunk
+2026-02-05 03:15:28,859 - ETL.load.load_dim_account - INFO -   ✅ Chunk 96/128 (lignes 4,750,000-4,800,000) — 99,116 comptes uniques dans ce chunk
+2026-02-05 03:15:59,946 - ETL.load.load_dim_account - INFO -   ✅ Chunk 97/128 (lignes 4,800,000-4,850,000) — 98,663 comptes uniques dans ce chunk
+2026-02-05 03:16:30,971 - ETL.load.load_dim_account - INFO -   ✅ Chunk 98/128 (lignes 4,850,000-4,900,000) — 98,666 comptes uniques dans ce chunk
+2026-02-05 03:17:01,484 - ETL.load.load_dim_account - INFO -   ✅ Chunk 99/128 (lignes 4,900,000-4,950,000) — 98,702 comptes uniques dans ce chunk
+2026-02-05 03:17:32,576 - ETL.load.load_dim_account - INFO -   ✅ Chunk 100/128 (lignes 4,950,000-5,000,000) — 98,698 comptes uniques dans ce chunk
+2026-02-05 03:18:04,445 - ETL.load.load_dim_account - INFO -   ✅ Chunk 101/128 (lignes 5,000,000-5,050,000) — 98,734 comptes uniques dans ce chunk
+2026-02-05 03:18:35,290 - ETL.load.load_dim_account - INFO -   ✅ Chunk 102/128 (lignes 5,050,000-5,100,000) — 98,747 comptes uniques dans ce chunk
+2026-02-05 03:19:05,913 - ETL.load.load_dim_account - INFO -   ✅ Chunk 103/128 (lignes 5,100,000-5,150,000) — 98,855 comptes uniques dans ce chunk
+2026-02-05 03:19:36,689 - ETL.load.load_dim_account - INFO -   ✅ Chunk 104/128 (lignes 5,150,000-5,200,000) — 99,175 comptes uniques dans ce chunk
+2026-02-05 03:20:07,498 - ETL.load.load_dim_account - INFO -   ✅ Chunk 105/128 (lignes 5,200,000-5,250,000) — 98,827 comptes uniques dans ce chunk
+2026-02-05 03:20:39,317 - ETL.load.load_dim_account - INFO -   ✅ Chunk 106/128 (lignes 5,250,000-5,300,000) — 98,833 comptes uniques dans ce chunk
+2026-02-05 03:21:10,054 - ETL.load.load_dim_account - INFO -   ✅ Chunk 107/128 (lignes 5,300,000-5,350,000) — 98,864 comptes uniques dans ce chunk
+2026-02-05 03:21:40,821 - ETL.load.load_dim_account - INFO -   ✅ Chunk 108/128 (lignes 5,350,000-5,400,000) — 98,820 comptes uniques dans ce chunk
+2026-02-05 03:22:12,604 - ETL.load.load_dim_account - INFO -   ✅ Chunk 109/128 (lignes 5,400,000-5,450,000) — 98,851 comptes uniques dans ce chunk
+2026-02-05 03:22:43,593 - ETL.load.load_dim_account - INFO -   ✅ Chunk 110/128 (lignes 5,450,000-5,500,000) — 98,888 comptes uniques dans ce chunk
+2026-02-05 03:23:15,862 - ETL.load.load_dim_account - INFO -   ✅ Chunk 111/128 (lignes 5,500,000-5,550,000) — 99,065 comptes uniques dans ce chunk
+2026-02-05 03:23:46,670 - ETL.load.load_dim_account - INFO -   ✅ Chunk 112/128 (lignes 5,550,000-5,600,000) — 99,074 comptes uniques dans ce chunk
+2026-02-05 03:24:17,431 - ETL.load.load_dim_account - INFO -   ✅ Chunk 113/128 (lignes 5,600,000-5,650,000) — 98,837 comptes uniques dans ce chunk
+2026-02-05 03:24:48,035 - ETL.load.load_dim_account - INFO -   ✅ Chunk 114/128 (lignes 5,650,000-5,700,000) — 98,889 comptes uniques dans ce chunk
+2026-02-05 03:25:19,761 - ETL.load.load_dim_account - INFO -   ✅ Chunk 115/128 (lignes 5,700,000-5,750,000) — 98,878 comptes uniques dans ce chunk
+2026-02-05 03:25:51,090 - ETL.load.load_dim_account - INFO -   ✅ Chunk 116/128 (lignes 5,750,000-5,800,000) — 98,900 comptes uniques dans ce chunk
+2026-02-05 03:26:22,328 - ETL.load.load_dim_account - INFO -   ✅ Chunk 117/128 (lignes 5,800,000-5,850,000) — 98,933 comptes uniques dans ce chunk
+2026-02-05 03:26:53,293 - ETL.load.load_dim_account - INFO -   ✅ Chunk 118/128 (lignes 5,850,000-5,900,000) — 98,998 comptes uniques dans ce chunk
+2026-02-05 03:27:24,884 - ETL.load.load_dim_account - INFO -   ✅ Chunk 119/128 (lignes 5,900,000-5,950,000) — 99,030 comptes uniques dans ce chunk
+2026-02-05 03:27:56,263 - ETL.load.load_dim_account - INFO -   ✅ Chunk 120/128 (lignes 5,950,000-6,000,000) — 99,317 comptes uniques dans ce chunk
+2026-02-05 03:28:28,184 - ETL.load.load_dim_account - INFO -   ✅ Chunk 121/128 (lignes 6,000,000-6,050,000) — 99,115 comptes uniques dans ce chunk
+2026-02-05 03:28:59,759 - ETL.load.load_dim_account - INFO -   ✅ Chunk 122/128 (lignes 6,050,000-6,100,000) — 99,036 comptes uniques dans ce chunk
+2026-02-05 03:29:31,164 - ETL.load.load_dim_account - INFO -   ✅ Chunk 123/128 (lignes 6,100,000-6,150,000) — 99,109 comptes uniques dans ce chunk
+2026-02-05 03:30:03,843 - ETL.load.load_dim_account - INFO -   ✅ Chunk 124/128 (lignes 6,150,000-6,200,000) — 99,137 comptes uniques dans ce chunk
+2026-02-05 03:30:35,735 - ETL.load.load_dim_account - INFO -   ✅ Chunk 125/128 (lignes 6,200,000-6,250,000) — 99,086 comptes uniques dans ce chunk
+2026-02-05 03:31:07,672 - ETL.load.load_dim_account - INFO -   ✅ Chunk 126/128 (lignes 6,250,000-6,300,000) — 99,163 comptes uniques dans ce chunk
+2026-02-05 03:31:39,219 - ETL.load.load_dim_account - INFO -   ✅ Chunk 127/128 (lignes 6,300,000-6,350,000) — 99,016 comptes uniques dans ce chunk
+2026-02-05 03:31:47,223 - ETL.load.load_dim_account - INFO -   ✅ Chunk 128/128 (lignes 6,350,000-6,362,620) — 25,198 comptes uniques dans ce chunk
+2026-02-05 03:31:47,226 - ETL.load.load_dim_account - INFO - 🎉 Chargement dim_account terminé (traitement par flux, pas de saturation mémoire)
+2026-02-05 03:31:47,231 - __main__ - INFO -   ✅ dim_account chargé
+2026-02-05 03:31:47,231 - __main__ - INFO -   → Chargement de dim_time...
+2026-02-05 03:31:47,437 - ETL.load.load_dim_time - INFO -   → 743 pas de temps uniques à charger (min: 1, max: 743)
+2026-02-05 03:31:47,744 - ETL.load.load_dim_time - INFO -   ✅ Batch 1: 743 pas de temps chargés
+2026-02-05 03:31:47,744 - ETL.load.load_dim_time - INFO -   🎉 Tous les pas de temps ont été chargés avec succès
+2026-02-05 03:31:47,744 - __main__ - INFO -   ✅ dim_time chargé
+2026-02-05 03:31:47,744 - __main__ - INFO -   → Chargement de fact_transactions...
+2026-02-05 03:31:47,754 - ETL.load.load_fact_transactions - INFO -   → Chargement des mappings de dimensions...
+2026-02-05 03:31:54,188 - ETL.load.load_fact_transactions - INFO -   ✅ Mappings chargés: 9073900 comptes, 5 types, 743 pas de temps
+2026-02-05 03:31:54,189 - ETL.load.load_fact_transactions - INFO -   → Début du chargement de 6,362,620 transactions (batch size: 10,000)
+2026-02-05 03:31:54,849 - ETL.load.load_fact_transactions - INFO -   → Batch 1 inséré: 10,000 transactions (10,000/6,362,620 - 0.2%)
+2026-02-05 03:31:55,699 - ETL.load.load_fact_transactions - INFO -   → Batch 2 inséré: 10,000 transactions (20,000/6,362,620 - 0.3%)
+2026-02-05 03:31:56,563 - ETL.load.load_fact_transactions - INFO -   → Batch 3 inséré: 10,000 transactions (30,000/6,362,620 - 0.5%)
+2026-02-05 03:31:57,412 - ETL.load.load_fact_transactions - INFO -   → Batch 4 inséré: 10,000 transactions (40,000/6,362,620 - 0.6%)
+2026-02-05 03:31:58,095 - ETL.load.load_fact_transactions - INFO -   → Batch 5 inséré: 10,000 transactions (50,000/6,362,620 - 0.8%)
+2026-02-05 03:31:58,793 - ETL.load.load_fact_transactions - INFO -   → Batch 6 inséré: 10,000 transactions (60,000/6,362,620 - 0.9%)
+2026-02-05 03:31:59,472 - ETL.load.load_fact_transactions - INFO -   → Batch 7 inséré: 10,000 transactions (70,000/6,362,620 - 1.1%)
+2026-02-05 03:32:00,158 - ETL.load.load_fact_transactions - INFO -   → Batch 8 inséré: 10,000 transactions (80,000/6,362,620 - 1.3%)
+2026-02-05 03:32:00,830 - ETL.load.load_fact_transactions - INFO -   → Batch 9 inséré: 10,000 transactions (90,000/6,362,620 - 1.4%)
+2026-02-05 03:32:01,584 - ETL.load.load_fact_transactions - INFO -   → Batch 10 inséré: 10,000 transactions (100,000/6,362,620 - 1.6%)
+2026-02-05 03:32:02,349 - ETL.load.load_fact_transactions - INFO -   → Batch 11 inséré: 10,000 transactions (110,000/6,362,620 - 1.7%)
+2026-02-05 03:32:03,060 - ETL.load.load_fact_transactions - INFO -   → Batch 12 inséré: 10,000 transactions (120,000/6,362,620 - 1.9%)
+2026-02-05 03:32:03,759 - ETL.load.load_fact_transactions - INFO -   → Batch 13 inséré: 10,000 transactions (130,000/6,362,620 - 2.0%)
+2026-02-05 03:32:04,443 - ETL.load.load_fact_transactions - INFO -   → Batch 14 inséré: 10,000 transactions (140,000/6,362,620 - 2.2%)
+2026-02-05 03:32:05,151 - ETL.load.load_fact_transactions - INFO -   → Batch 15 inséré: 10,000 transactions (150,000/6,362,620 - 2.4%)
+2026-02-05 03:32:05,860 - ETL.load.load_fact_transactions - INFO -   → Batch 16 inséré: 10,000 transactions (160,000/6,362,620 - 2.5%)
+2026-02-05 03:32:06,592 - ETL.load.load_fact_transactions - INFO -   → Batch 17 inséré: 10,000 transactions (170,000/6,362,620 - 2.7%)
+2026-02-05 03:32:07,286 - ETL.load.load_fact_transactions - INFO -   → Batch 18 inséré: 10,000 transactions (180,000/6,362,620 - 2.8%)
+2026-02-05 03:32:08,018 - ETL.load.load_fact_transactions - INFO -   → Batch 19 inséré: 10,000 transactions (190,000/6,362,620 - 3.0%)
+2026-02-05 03:32:08,743 - ETL.load.load_fact_transactions - INFO -   → Batch 20 inséré: 10,000 transactions (200,000/6,362,620 - 3.1%)
+2026-02-05 03:32:09,529 - ETL.load.load_fact_transactions - INFO -   → Batch 21 inséré: 10,000 transactions (210,000/6,362,620 - 3.3%)
+2026-02-05 03:32:10,223 - ETL.load.load_fact_transactions - INFO -   → Batch 22 inséré: 10,000 transactions (220,000/6,362,620 - 3.5%)
+2026-02-05 03:32:10,929 - ETL.load.load_fact_transactions - INFO -   → Batch 23 inséré: 10,000 transactions (230,000/6,362,620 - 3.6%)
+2026-02-05 03:32:11,637 - ETL.load.load_fact_transactions - INFO -   → Batch 24 inséré: 10,000 transactions (240,000/6,362,620 - 3.8%)
+2026-02-05 03:32:12,323 - ETL.load.load_fact_transactions - INFO -   → Batch 25 inséré: 10,000 transactions (250,000/6,362,620 - 3.9%)
+2026-02-05 03:32:13,098 - ETL.load.load_fact_transactions - INFO -   → Batch 26 inséré: 10,000 transactions (260,000/6,362,620 - 4.1%)
+2026-02-05 03:32:13,814 - ETL.load.load_fact_transactions - INFO -   → Batch 27 inséré: 10,000 transactions (270,000/6,362,620 - 4.2%)
+2026-02-05 03:32:14,515 - ETL.load.load_fact_transactions - INFO -   → Batch 28 inséré: 10,000 transactions (280,000/6,362,620 - 4.4%)
+2026-02-05 03:32:15,208 - ETL.load.load_fact_transactions - INFO -   → Batch 29 inséré: 10,000 transactions (290,000/6,362,620 - 4.6%)
+2026-02-05 03:32:15,873 - ETL.load.load_fact_transactions - INFO -   → Batch 30 inséré: 10,000 transactions (300,000/6,362,620 - 4.7%)
+2026-02-05 03:32:16,598 - ETL.load.load_fact_transactions - INFO -   → Batch 31 inséré: 10,000 transactions (310,000/6,362,620 - 4.9%)
+2026-02-05 03:32:17,317 - ETL.load.load_fact_transactions - INFO -   → Batch 32 inséré: 10,000 transactions (320,000/6,362,620 - 5.0%)
+2026-02-05 03:32:18,034 - ETL.load.load_fact_transactions - INFO -   → Batch 33 inséré: 10,000 transactions (330,000/6,362,620 - 5.2%)
+2026-02-05 03:32:18,747 - ETL.load.load_fact_transactions - INFO -   → Batch 34 inséré: 10,000 transactions (340,000/6,362,620 - 5.3%)
+2026-02-05 03:32:19,453 - ETL.load.load_fact_transactions - INFO -   → Batch 35 inséré: 10,000 transactions (350,000/6,362,620 - 5.5%)
+2026-02-05 03:32:20,196 - ETL.load.load_fact_transactions - INFO -   → Batch 36 inséré: 10,000 transactions (360,000/6,362,620 - 5.7%)
+2026-02-05 03:32:20,863 - ETL.load.load_fact_transactions - INFO -   → Batch 37 inséré: 10,000 transactions (370,000/6,362,620 - 5.8%)
+2026-02-05 03:32:21,588 - ETL.load.load_fact_transactions - INFO -   → Batch 38 inséré: 10,000 transactions (380,000/6,362,620 - 6.0%)
+2026-02-05 03:32:22,313 - ETL.load.load_fact_transactions - INFO -   → Batch 39 inséré: 10,000 transactions (390,000/6,362,620 - 6.1%)
+2026-02-05 03:32:23,032 - ETL.load.load_fact_transactions - INFO -   → Batch 40 inséré: 10,000 transactions (400,000/6,362,620 - 6.3%)
+2026-02-05 03:32:23,750 - ETL.load.load_fact_transactions - INFO -   → Batch 41 inséré: 10,000 transactions (410,000/6,362,620 - 6.4%)
+2026-02-05 03:32:24,440 - ETL.load.load_fact_transactions - INFO -   → Batch 42 inséré: 10,000 transactions (420,000/6,362,620 - 6.6%)
+2026-02-05 03:32:25,169 - ETL.load.load_fact_transactions - INFO -   → Batch 43 inséré: 10,000 transactions (430,000/6,362,620 - 6.8%)
+2026-02-05 03:32:25,837 - ETL.load.load_fact_transactions - INFO -   → Batch 44 inséré: 10,000 transactions (440,000/6,362,620 - 6.9%)
+2026-02-05 03:32:26,560 - ETL.load.load_fact_transactions - INFO -   → Batch 45 inséré: 10,000 transactions (450,000/6,362,620 - 7.1%)
+2026-02-05 03:32:27,299 - ETL.load.load_fact_transactions - INFO -   → Batch 46 inséré: 10,000 transactions (460,000/6,362,620 - 7.2%)
+2026-02-05 03:32:28,009 - ETL.load.load_fact_transactions - INFO -   → Batch 47 inséré: 10,000 transactions (470,000/6,362,620 - 7.4%)
+2026-02-05 03:32:28,708 - ETL.load.load_fact_transactions - INFO -   → Batch 48 inséré: 10,000 transactions (480,000/6,362,620 - 7.5%)
+2026-02-05 03:32:29,415 - ETL.load.load_fact_transactions - INFO -   → Batch 49 inséré: 10,000 transactions (490,000/6,362,620 - 7.7%)
+2026-02-05 03:32:30,138 - ETL.load.load_fact_transactions - INFO -   → Batch 50 inséré: 10,000 transactions (500,000/6,362,620 - 7.9%)
+2026-02-05 03:32:30,827 - ETL.load.load_fact_transactions - INFO -   → Batch 51 inséré: 10,000 transactions (510,000/6,362,620 - 8.0%)
+2026-02-05 03:32:31,532 - ETL.load.load_fact_transactions - INFO -   → Batch 52 inséré: 10,000 transactions (520,000/6,362,620 - 8.2%)
+2026-02-05 03:32:32,230 - ETL.load.load_fact_transactions - INFO -   → Batch 53 inséré: 10,000 transactions (530,000/6,362,620 - 8.3%)
+2026-02-05 03:32:32,938 - ETL.load.load_fact_transactions - INFO -   → Batch 54 inséré: 10,000 transactions (540,000/6,362,620 - 8.5%)
+2026-02-05 03:32:33,645 - ETL.load.load_fact_transactions - INFO -   → Batch 55 inséré: 10,000 transactions (550,000/6,362,620 - 8.6%)
+2026-02-05 03:32:34,355 - ETL.load.load_fact_transactions - INFO -   → Batch 56 inséré: 10,000 transactions (560,000/6,362,620 - 8.8%)
+2026-02-05 03:32:35,029 - ETL.load.load_fact_transactions - INFO -   → Batch 57 inséré: 10,000 transactions (570,000/6,362,620 - 9.0%)
+2026-02-05 03:32:35,684 - ETL.load.load_fact_transactions - INFO -   → Batch 58 inséré: 10,000 transactions (580,000/6,362,620 - 9.1%)
+2026-02-05 03:32:36,391 - ETL.load.load_fact_transactions - INFO -   → Batch 59 inséré: 10,000 transactions (590,000/6,362,620 - 9.3%)
+2026-02-05 03:32:37,093 - ETL.load.load_fact_transactions - INFO -   → Batch 60 inséré: 10,000 transactions (600,000/6,362,620 - 9.4%)
+2026-02-05 03:32:37,829 - ETL.load.load_fact_transactions - INFO -   → Batch 61 inséré: 10,000 transactions (610,000/6,362,620 - 9.6%)
+2026-02-05 03:32:38,548 - ETL.load.load_fact_transactions - INFO -   → Batch 62 inséré: 10,000 transactions (620,000/6,362,620 - 9.7%)
+2026-02-05 03:32:39,275 - ETL.load.load_fact_transactions - INFO -   → Batch 63 inséré: 10,000 transactions (630,000/6,362,620 - 9.9%)
+2026-02-05 03:32:39,968 - ETL.load.load_fact_transactions - INFO -   → Batch 64 inséré: 10,000 transactions (640,000/6,362,620 - 10.1%)
+2026-02-05 03:32:40,627 - ETL.load.load_fact_transactions - INFO -   → Batch 65 inséré: 10,000 transactions (650,000/6,362,620 - 10.2%)
+2026-02-05 03:32:41,417 - ETL.load.load_fact_transactions - INFO -   → Batch 66 inséré: 10,000 transactions (660,000/6,362,620 - 10.4%)
+2026-02-05 03:32:42,143 - ETL.load.load_fact_transactions - INFO -   → Batch 67 inséré: 10,000 transactions (670,000/6,362,620 - 10.5%)
+2026-02-05 03:32:42,878 - ETL.load.load_fact_transactions - INFO -   → Batch 68 inséré: 10,000 transactions (680,000/6,362,620 - 10.7%)
+2026-02-05 03:32:43,591 - ETL.load.load_fact_transactions - INFO -   → Batch 69 inséré: 10,000 transactions (690,000/6,362,620 - 10.8%)
+2026-02-05 03:32:44,306 - ETL.load.load_fact_transactions - INFO -   → Batch 70 inséré: 10,000 transactions (700,000/6,362,620 - 11.0%)
+2026-02-05 03:32:45,041 - ETL.load.load_fact_transactions - INFO -   → Batch 71 inséré: 10,000 transactions (710,000/6,362,620 - 11.2%)
+2026-02-05 03:32:45,683 - ETL.load.load_fact_transactions - INFO -   → Batch 72 inséré: 10,000 transactions (720,000/6,362,620 - 11.3%)
+2026-02-05 03:32:46,508 - ETL.load.load_fact_transactions - INFO -   → Batch 73 inséré: 10,000 transactions (730,000/6,362,620 - 11.5%)
+2026-02-05 03:32:47,229 - ETL.load.load_fact_transactions - INFO -   → Batch 74 inséré: 10,000 transactions (740,000/6,362,620 - 11.6%)
+2026-02-05 03:32:47,950 - ETL.load.load_fact_transactions - INFO -   → Batch 75 inséré: 10,000 transactions (750,000/6,362,620 - 11.8%)
+2026-02-05 03:32:48,706 - ETL.load.load_fact_transactions - INFO -   → Batch 76 inséré: 10,000 transactions (760,000/6,362,620 - 11.9%)
+2026-02-05 03:32:49,437 - ETL.load.load_fact_transactions - INFO -   → Batch 77 inséré: 10,000 transactions (770,000/6,362,620 - 12.1%)
+2026-02-05 03:32:50,150 - ETL.load.load_fact_transactions - INFO -   → Batch 78 inséré: 10,000 transactions (780,000/6,362,620 - 12.3%)
+2026-02-05 03:32:50,802 - ETL.load.load_fact_transactions - INFO -   → Batch 79 inséré: 10,000 transactions (790,000/6,362,620 - 12.4%)
+2026-02-05 03:32:51,491 - ETL.load.load_fact_transactions - INFO -   → Batch 80 inséré: 10,000 transactions (800,000/6,362,620 - 12.6%)
+2026-02-05 03:32:52,255 - ETL.load.load_fact_transactions - INFO -   → Batch 81 inséré: 10,000 transactions (810,000/6,362,620 - 12.7%)
+2026-02-05 03:32:53,007 - ETL.load.load_fact_transactions - INFO -   → Batch 82 inséré: 10,000 transactions (820,000/6,362,620 - 12.9%)
+2026-02-05 03:32:53,719 - ETL.load.load_fact_transactions - INFO -   → Batch 83 inséré: 10,000 transactions (830,000/6,362,620 - 13.0%)
+2026-02-05 03:32:54,420 - ETL.load.load_fact_transactions - INFO -   → Batch 84 inséré: 10,000 transactions (840,000/6,362,620 - 13.2%)
+2026-02-05 03:32:55,127 - ETL.load.load_fact_transactions - INFO -   → Batch 85 inséré: 10,000 transactions (850,000/6,362,620 - 13.4%)
+2026-02-05 03:32:55,833 - ETL.load.load_fact_transactions - INFO -   → Batch 86 inséré: 10,000 transactions (860,000/6,362,620 - 13.5%)
+2026-02-05 03:32:56,492 - ETL.load.load_fact_transactions - INFO -   → Batch 87 inséré: 10,000 transactions (870,000/6,362,620 - 13.7%)
+2026-02-05 03:32:57,207 - ETL.load.load_fact_transactions - INFO -   → Batch 88 inséré: 10,000 transactions (880,000/6,362,620 - 13.8%)
+2026-02-05 03:32:57,893 - ETL.load.load_fact_transactions - INFO -   → Batch 89 inséré: 10,000 transactions (890,000/6,362,620 - 14.0%)
+2026-02-05 03:32:58,612 - ETL.load.load_fact_transactions - INFO -   → Batch 90 inséré: 10,000 transactions (900,000/6,362,620 - 14.1%)
+2026-02-05 03:32:59,333 - ETL.load.load_fact_transactions - INFO -   → Batch 91 inséré: 10,000 transactions (910,000/6,362,620 - 14.3%)
+2026-02-05 03:33:00,052 - ETL.load.load_fact_transactions - INFO -   → Batch 92 inséré: 10,000 transactions (920,000/6,362,620 - 14.5%)
+2026-02-05 03:33:00,693 - ETL.load.load_fact_transactions - INFO -   → Batch 93 inséré: 10,000 transactions (930,000/6,362,620 - 14.6%)
+2026-02-05 03:33:01,420 - ETL.load.load_fact_transactions - INFO -   → Batch 94 inséré: 10,000 transactions (940,000/6,362,620 - 14.8%)
+2026-02-05 03:33:02,151 - ETL.load.load_fact_transactions - INFO -   → Batch 95 inséré: 10,000 transactions (950,000/6,362,620 - 14.9%)
+2026-02-05 03:33:02,932 - ETL.load.load_fact_transactions - INFO -   → Batch 96 inséré: 10,000 transactions (960,000/6,362,620 - 15.1%)
+2026-02-05 03:33:03,664 - ETL.load.load_fact_transactions - INFO -   → Batch 97 inséré: 10,000 transactions (970,000/6,362,620 - 15.2%)
+2026-02-05 03:33:04,375 - ETL.load.load_fact_transactions - INFO -   → Batch 98 inséré: 10,000 transactions (980,000/6,362,620 - 15.4%)
+2026-02-05 03:33:05,088 - ETL.load.load_fact_transactions - INFO -   → Batch 99 inséré: 10,000 transactions (990,000/6,362,620 - 15.6%)
+2026-02-05 03:33:05,779 - ETL.load.load_fact_transactions - INFO -   → Batch 100 inséré: 10,000 transactions (1,000,000/6,362,620 - 15.7%)
+2026-02-05 03:33:06,546 - ETL.load.load_fact_transactions - INFO -   → Batch 101 inséré: 10,000 transactions (1,010,000/6,362,620 - 15.9%)
+2026-02-05 03:33:07,265 - ETL.load.load_fact_transactions - INFO -   → Batch 102 inséré: 10,000 transactions (1,020,000/6,362,620 - 16.0%)
+2026-02-05 03:33:07,997 - ETL.load.load_fact_transactions - INFO -   → Batch 103 inséré: 10,000 transactions (1,030,000/6,362,620 - 16.2%)
+2026-02-05 03:33:08,711 - ETL.load.load_fact_transactions - INFO -   → Batch 104 inséré: 10,000 transactions (1,040,000/6,362,620 - 16.3%)
+2026-02-05 03:33:09,436 - ETL.load.load_fact_transactions - INFO -   → Batch 105 inséré: 10,000 transactions (1,050,000/6,362,620 - 16.5%)
+2026-02-05 03:33:10,221 - ETL.load.load_fact_transactions - INFO -   → Batch 106 inséré: 10,000 transactions (1,060,000/6,362,620 - 16.7%)
+2026-02-05 03:33:10,906 - ETL.load.load_fact_transactions - INFO -   → Batch 107 inséré: 10,000 transactions (1,070,000/6,362,620 - 16.8%)
+2026-02-05 03:33:11,677 - ETL.load.load_fact_transactions - INFO -   → Batch 108 inséré: 10,000 transactions (1,080,000/6,362,620 - 17.0%)
+2026-02-05 03:33:12,474 - ETL.load.load_fact_transactions - INFO -   → Batch 109 inséré: 10,000 transactions (1,090,000/6,362,620 - 17.1%)
+2026-02-05 03:33:13,203 - ETL.load.load_fact_transactions - INFO -   → Batch 110 inséré: 10,000 transactions (1,100,000/6,362,620 - 17.3%)
+2026-02-05 03:33:13,992 - ETL.load.load_fact_transactions - INFO -   → Batch 111 inséré: 10,000 transactions (1,110,000/6,362,620 - 17.4%)
+2026-02-05 03:33:14,726 - ETL.load.load_fact_transactions - INFO -   → Batch 112 inséré: 10,000 transactions (1,120,000/6,362,620 - 17.6%)
+2026-02-05 03:33:15,407 - ETL.load.load_fact_transactions - INFO -   → Batch 113 inséré: 10,000 transactions (1,130,000/6,362,620 - 17.8%)
+2026-02-05 03:33:16,069 - ETL.load.load_fact_transactions - INFO -   → Batch 114 inséré: 10,000 transactions (1,140,000/6,362,620 - 17.9%)
+2026-02-05 03:33:16,788 - ETL.load.load_fact_transactions - INFO -   → Batch 115 inséré: 10,000 transactions (1,150,000/6,362,620 - 18.1%)
+2026-02-05 03:33:17,489 - ETL.load.load_fact_transactions - INFO -   → Batch 116 inséré: 10,000 transactions (1,160,000/6,362,620 - 18.2%)
+2026-02-05 03:33:18,199 - ETL.load.load_fact_transactions - INFO -   → Batch 117 inséré: 10,000 transactions (1,170,000/6,362,620 - 18.4%)
+2026-02-05 03:33:18,859 - ETL.load.load_fact_transactions - INFO -   → Batch 118 inséré: 10,000 transactions (1,180,000/6,362,620 - 18.5%)
+2026-02-05 03:33:19,536 - ETL.load.load_fact_transactions - INFO -   → Batch 119 inséré: 10,000 transactions (1,190,000/6,362,620 - 18.7%)
+2026-02-05 03:33:20,235 - ETL.load.load_fact_transactions - INFO -   → Batch 120 inséré: 10,000 transactions (1,200,000/6,362,620 - 18.9%)
+2026-02-05 03:33:20,949 - ETL.load.load_fact_transactions - INFO -   → Batch 121 inséré: 10,000 transactions (1,210,000/6,362,620 - 19.0%)
+2026-02-05 03:33:21,656 - ETL.load.load_fact_transactions - INFO -   → Batch 122 inséré: 10,000 transactions (1,220,000/6,362,620 - 19.2%)
+2026-02-05 03:33:22,342 - ETL.load.load_fact_transactions - INFO -   → Batch 123 inséré: 10,000 transactions (1,230,000/6,362,620 - 19.3%)
+2026-02-05 03:33:23,067 - ETL.load.load_fact_transactions - INFO -   → Batch 124 inséré: 10,000 transactions (1,240,000/6,362,620 - 19.5%)
+2026-02-05 03:33:23,804 - ETL.load.load_fact_transactions - INFO -   → Batch 125 inséré: 10,000 transactions (1,250,000/6,362,620 - 19.6%)
+2026-02-05 03:33:24,562 - ETL.load.load_fact_transactions - INFO -   → Batch 126 inséré: 10,000 transactions (1,260,000/6,362,620 - 19.8%)
+2026-02-05 03:33:25,328 - ETL.load.load_fact_transactions - INFO -   → Batch 127 inséré: 10,000 transactions (1,270,000/6,362,620 - 20.0%)
+2026-02-05 03:33:26,047 - ETL.load.load_fact_transactions - INFO -   → Batch 128 inséré: 10,000 transactions (1,280,000/6,362,620 - 20.1%)
+2026-02-05 03:33:26,789 - ETL.load.load_fact_transactions - INFO -   → Batch 129 inséré: 10,000 transactions (1,290,000/6,362,620 - 20.3%)
+2026-02-05 03:33:27,575 - ETL.load.load_fact_transactions - INFO -   → Batch 130 inséré: 10,000 transactions (1,300,000/6,362,620 - 20.4%)
+2026-02-05 03:33:28,367 - ETL.load.load_fact_transactions - INFO -   → Batch 131 inséré: 10,000 transactions (1,310,000/6,362,620 - 20.6%)
+2026-02-05 03:33:29,125 - ETL.load.load_fact_transactions - INFO -   → Batch 132 inséré: 10,000 transactions (1,320,000/6,362,620 - 20.7%)
+2026-02-05 03:33:29,830 - ETL.load.load_fact_transactions - INFO -   → Batch 133 inséré: 10,000 transactions (1,330,000/6,362,620 - 20.9%)
+2026-02-05 03:33:30,546 - ETL.load.load_fact_transactions - INFO -   → Batch 134 inséré: 10,000 transactions (1,340,000/6,362,620 - 21.1%)
+2026-02-05 03:33:31,387 - ETL.load.load_fact_transactions - INFO -   → Batch 135 inséré: 10,000 transactions (1,350,000/6,362,620 - 21.2%)
+2026-02-05 03:33:32,235 - ETL.load.load_fact_transactions - INFO -   → Batch 136 inséré: 10,000 transactions (1,360,000/6,362,620 - 21.4%)
+2026-02-05 03:33:33,035 - ETL.load.load_fact_transactions - INFO -   → Batch 137 inséré: 10,000 transactions (1,370,000/6,362,620 - 21.5%)
+2026-02-05 03:33:33,796 - ETL.load.load_fact_transactions - INFO -   → Batch 138 inséré: 10,000 transactions (1,380,000/6,362,620 - 21.7%)
+2026-02-05 03:33:34,529 - ETL.load.load_fact_transactions - INFO -   → Batch 139 inséré: 10,000 transactions (1,390,000/6,362,620 - 21.8%)
+2026-02-05 03:33:35,296 - ETL.load.load_fact_transactions - INFO -   → Batch 140 inséré: 10,000 transactions (1,400,000/6,362,620 - 22.0%)
+2026-02-05 03:33:36,062 - ETL.load.load_fact_transactions - INFO -   → Batch 141 inséré: 10,000 transactions (1,410,000/6,362,620 - 22.2%)
+2026-02-05 03:33:36,811 - ETL.load.load_fact_transactions - INFO -   → Batch 142 inséré: 10,000 transactions (1,420,000/6,362,620 - 22.3%)
+2026-02-05 03:33:37,538 - ETL.load.load_fact_transactions - INFO -   → Batch 143 inséré: 10,000 transactions (1,430,000/6,362,620 - 22.5%)
+2026-02-05 03:33:38,279 - ETL.load.load_fact_transactions - INFO -   → Batch 144 inséré: 10,000 transactions (1,440,000/6,362,620 - 22.6%)
+2026-02-05 03:33:39,042 - ETL.load.load_fact_transactions - INFO -   → Batch 145 inséré: 10,000 transactions (1,450,000/6,362,620 - 22.8%)
+2026-02-05 03:33:39,845 - ETL.load.load_fact_transactions - INFO -   → Batch 146 inséré: 10,000 transactions (1,460,000/6,362,620 - 22.9%)
+2026-02-05 03:33:40,520 - ETL.load.load_fact_transactions - INFO -   → Batch 147 inséré: 10,000 transactions (1,470,000/6,362,620 - 23.1%)
+2026-02-05 03:33:41,256 - ETL.load.load_fact_transactions - INFO -   → Batch 148 inséré: 10,000 transactions (1,480,000/6,362,620 - 23.3%)
+2026-02-05 03:33:42,026 - ETL.load.load_fact_transactions - INFO -   → Batch 149 inséré: 10,000 transactions (1,490,000/6,362,620 - 23.4%)
+2026-02-05 03:33:42,751 - ETL.load.load_fact_transactions - INFO -   → Batch 150 inséré: 10,000 transactions (1,500,000/6,362,620 - 23.6%)
+2026-02-05 03:33:43,511 - ETL.load.load_fact_transactions - INFO -   → Batch 151 inséré: 10,000 transactions (1,510,000/6,362,620 - 23.7%)
+2026-02-05 03:33:44,254 - ETL.load.load_fact_transactions - INFO -   → Batch 152 inséré: 10,000 transactions (1,520,000/6,362,620 - 23.9%)
+2026-02-05 03:33:45,038 - ETL.load.load_fact_transactions - INFO -   → Batch 153 inséré: 10,000 transactions (1,530,000/6,362,620 - 24.0%)
+2026-02-05 03:33:45,725 - ETL.load.load_fact_transactions - INFO -   → Batch 154 inséré: 10,000 transactions (1,540,000/6,362,620 - 24.2%)
+2026-02-05 03:33:46,462 - ETL.load.load_fact_transactions - INFO -   → Batch 155 inséré: 10,000 transactions (1,550,000/6,362,620 - 24.4%)
+2026-02-05 03:33:47,241 - ETL.load.load_fact_transactions - INFO -   → Batch 156 inséré: 10,000 transactions (1,560,000/6,362,620 - 24.5%)
+2026-02-05 03:33:48,033 - ETL.load.load_fact_transactions - INFO -   → Batch 157 inséré: 10,000 transactions (1,570,000/6,362,620 - 24.7%)
+2026-02-05 03:33:48,773 - ETL.load.load_fact_transactions - INFO -   → Batch 158 inséré: 10,000 transactions (1,580,000/6,362,620 - 24.8%)
+2026-02-05 03:33:49,542 - ETL.load.load_fact_transactions - INFO -   → Batch 159 inséré: 10,000 transactions (1,590,000/6,362,620 - 25.0%)
+2026-02-05 03:33:50,304 - ETL.load.load_fact_transactions - INFO -   → Batch 160 inséré: 10,000 transactions (1,600,000/6,362,620 - 25.1%)
+2026-02-05 03:33:51,088 - ETL.load.load_fact_transactions - INFO -   → Batch 161 inséré: 10,000 transactions (1,610,000/6,362,620 - 25.3%)
+2026-02-05 03:33:51,871 - ETL.load.load_fact_transactions - INFO -   → Batch 162 inséré: 10,000 transactions (1,620,000/6,362,620 - 25.5%)
+2026-02-05 03:33:52,649 - ETL.load.load_fact_transactions - INFO -   → Batch 163 inséré: 10,000 transactions (1,630,000/6,362,620 - 25.6%)
+2026-02-05 03:33:53,423 - ETL.load.load_fact_transactions - INFO -   → Batch 164 inséré: 10,000 transactions (1,640,000/6,362,620 - 25.8%)
+2026-02-05 03:33:54,164 - ETL.load.load_fact_transactions - INFO -   → Batch 165 inséré: 10,000 transactions (1,650,000/6,362,620 - 25.9%)
+2026-02-05 03:33:54,955 - ETL.load.load_fact_transactions - INFO -   → Batch 166 inséré: 10,000 transactions (1,660,000/6,362,620 - 26.1%)
+2026-02-05 03:33:55,695 - ETL.load.load_fact_transactions - INFO -   → Batch 167 inséré: 10,000 transactions (1,670,000/6,362,620 - 26.2%)
+2026-02-05 03:33:56,444 - ETL.load.load_fact_transactions - INFO -   → Batch 168 inséré: 10,000 transactions (1,680,000/6,362,620 - 26.4%)
+2026-02-05 03:33:57,193 - ETL.load.load_fact_transactions - INFO -   → Batch 169 inséré: 10,000 transactions (1,690,000/6,362,620 - 26.6%)
+2026-02-05 03:33:57,958 - ETL.load.load_fact_transactions - INFO -   → Batch 170 inséré: 10,000 transactions (1,700,000/6,362,620 - 26.7%)
+2026-02-05 03:33:58,750 - ETL.load.load_fact_transactions - INFO -   → Batch 171 inséré: 10,000 transactions (1,710,000/6,362,620 - 26.9%)
+2026-02-05 03:33:59,624 - ETL.load.load_fact_transactions - INFO -   → Batch 172 inséré: 10,000 transactions (1,720,000/6,362,620 - 27.0%)
+2026-02-05 03:34:00,412 - ETL.load.load_fact_transactions - INFO -   → Batch 173 inséré: 10,000 transactions (1,730,000/6,362,620 - 27.2%)
+2026-02-05 03:34:01,214 - ETL.load.load_fact_transactions - INFO -   → Batch 174 inséré: 10,000 transactions (1,740,000/6,362,620 - 27.3%)
+2026-02-05 03:34:02,035 - ETL.load.load_fact_transactions - INFO -   → Batch 175 inséré: 10,000 transactions (1,750,000/6,362,620 - 27.5%)
+2026-02-05 03:34:02,860 - ETL.load.load_fact_transactions - INFO -   → Batch 176 inséré: 10,000 transactions (1,760,000/6,362,620 - 27.7%)
+2026-02-05 03:34:03,617 - ETL.load.load_fact_transactions - INFO -   → Batch 177 inséré: 10,000 transactions (1,770,000/6,362,620 - 27.8%)
+2026-02-05 03:34:04,366 - ETL.load.load_fact_transactions - INFO -   → Batch 178 inséré: 10,000 transactions (1,780,000/6,362,620 - 28.0%)
+2026-02-05 03:34:05,146 - ETL.load.load_fact_transactions - INFO -   → Batch 179 inséré: 10,000 transactions (1,790,000/6,362,620 - 28.1%)
+2026-02-05 03:34:05,870 - ETL.load.load_fact_transactions - INFO -   → Batch 180 inséré: 10,000 transactions (1,800,000/6,362,620 - 28.3%)
+2026-02-05 03:34:06,701 - ETL.load.load_fact_transactions - INFO -   → Batch 181 inséré: 10,000 transactions (1,810,000/6,362,620 - 28.4%)
+2026-02-05 03:34:07,512 - ETL.load.load_fact_transactions - INFO -   → Batch 182 inséré: 10,000 transactions (1,820,000/6,362,620 - 28.6%)
+2026-02-05 03:34:08,291 - ETL.load.load_fact_transactions - INFO -   → Batch 183 inséré: 10,000 transactions (1,830,000/6,362,620 - 28.8%)
+2026-02-05 03:34:09,125 - ETL.load.load_fact_transactions - INFO -   → Batch 184 inséré: 10,000 transactions (1,840,000/6,362,620 - 28.9%)
+2026-02-05 03:34:10,050 - ETL.load.load_fact_transactions - INFO -   → Batch 185 inséré: 10,000 transactions (1,850,000/6,362,620 - 29.1%)
+2026-02-05 03:34:10,895 - ETL.load.load_fact_transactions - INFO -   → Batch 186 inséré: 10,000 transactions (1,860,000/6,362,620 - 29.2%)
+2026-02-05 03:34:11,709 - ETL.load.load_fact_transactions - INFO -   → Batch 187 inséré: 10,000 transactions (1,870,000/6,362,620 - 29.4%)
+2026-02-05 03:34:12,532 - ETL.load.load_fact_transactions - INFO -   → Batch 188 inséré: 10,000 transactions (1,880,000/6,362,620 - 29.5%)
+2026-02-05 03:34:13,435 - ETL.load.load_fact_transactions - INFO -   → Batch 189 inséré: 10,000 transactions (1,890,000/6,362,620 - 29.7%)
+2026-02-05 03:34:14,261 - ETL.load.load_fact_transactions - INFO -   → Batch 190 inséré: 10,000 transactions (1,900,000/6,362,620 - 29.9%)
+2026-02-05 03:34:15,134 - ETL.load.load_fact_transactions - INFO -   → Batch 191 inséré: 10,000 transactions (1,910,000/6,362,620 - 30.0%)
+2026-02-05 03:34:15,856 - ETL.load.load_fact_transactions - INFO -   → Batch 192 inséré: 10,000 transactions (1,920,000/6,362,620 - 30.2%)
+2026-02-05 03:34:16,628 - ETL.load.load_fact_transactions - INFO -   → Batch 193 inséré: 10,000 transactions (1,930,000/6,362,620 - 30.3%)
+2026-02-05 03:34:17,444 - ETL.load.load_fact_transactions - INFO -   → Batch 194 inséré: 10,000 transactions (1,940,000/6,362,620 - 30.5%)
+2026-02-05 03:34:18,276 - ETL.load.load_fact_transactions - INFO -   → Batch 195 inséré: 10,000 transactions (1,950,000/6,362,620 - 30.6%)
+2026-02-05 03:34:19,097 - ETL.load.load_fact_transactions - INFO -   → Batch 196 inséré: 10,000 transactions (1,960,000/6,362,620 - 30.8%)
+2026-02-05 03:34:19,903 - ETL.load.load_fact_transactions - INFO -   → Batch 197 inséré: 10,000 transactions (1,970,000/6,362,620 - 31.0%)
+2026-02-05 03:34:20,615 - ETL.load.load_fact_transactions - INFO -   → Batch 198 inséré: 10,000 transactions (1,980,000/6,362,620 - 31.1%)
+2026-02-05 03:34:21,408 - ETL.load.load_fact_transactions - INFO -   → Batch 199 inséré: 10,000 transactions (1,990,000/6,362,620 - 31.3%)
+2026-02-05 03:34:22,202 - ETL.load.load_fact_transactions - INFO -   → Batch 200 inséré: 10,000 transactions (2,000,000/6,362,620 - 31.4%)
+2026-02-05 03:34:23,056 - ETL.load.load_fact_transactions - INFO -   → Batch 201 inséré: 10,000 transactions (2,010,000/6,362,620 - 31.6%)
+2026-02-05 03:34:23,839 - ETL.load.load_fact_transactions - INFO -   → Batch 202 inséré: 10,000 transactions (2,020,000/6,362,620 - 31.7%)
+2026-02-05 03:34:24,654 - ETL.load.load_fact_transactions - INFO -   → Batch 203 inséré: 10,000 transactions (2,030,000/6,362,620 - 31.9%)
+2026-02-05 03:34:25,452 - ETL.load.load_fact_transactions - INFO -   → Batch 204 inséré: 10,000 transactions (2,040,000/6,362,620 - 32.1%)
+2026-02-05 03:34:26,221 - ETL.load.load_fact_transactions - INFO -   → Batch 205 inséré: 10,000 transactions (2,050,000/6,362,620 - 32.2%)
+2026-02-05 03:34:27,028 - ETL.load.load_fact_transactions - INFO -   → Batch 206 inséré: 10,000 transactions (2,060,000/6,362,620 - 32.4%)
+2026-02-05 03:34:27,847 - ETL.load.load_fact_transactions - INFO -   → Batch 207 inséré: 10,000 transactions (2,070,000/6,362,620 - 32.5%)
+2026-02-05 03:34:28,660 - ETL.load.load_fact_transactions - INFO -   → Batch 208 inséré: 10,000 transactions (2,080,000/6,362,620 - 32.7%)
+2026-02-05 03:34:29,439 - ETL.load.load_fact_transactions - INFO -   → Batch 209 inséré: 10,000 transactions (2,090,000/6,362,620 - 32.8%)
+2026-02-05 03:34:30,348 - ETL.load.load_fact_transactions - INFO -   → Batch 210 inséré: 10,000 transactions (2,100,000/6,362,620 - 33.0%)
+2026-02-05 03:34:31,274 - ETL.load.load_fact_transactions - INFO -   → Batch 211 inséré: 10,000 transactions (2,110,000/6,362,620 - 33.2%)
+2026-02-05 03:34:32,141 - ETL.load.load_fact_transactions - INFO -   → Batch 212 inséré: 10,000 transactions (2,120,000/6,362,620 - 33.3%)
+2026-02-05 03:34:32,968 - ETL.load.load_fact_transactions - INFO -   → Batch 213 inséré: 10,000 transactions (2,130,000/6,362,620 - 33.5%)
+2026-02-05 03:34:33,806 - ETL.load.load_fact_transactions - INFO -   → Batch 214 inséré: 10,000 transactions (2,140,000/6,362,620 - 33.6%)
+2026-02-05 03:34:34,648 - ETL.load.load_fact_transactions - INFO -   → Batch 215 inséré: 10,000 transactions (2,150,000/6,362,620 - 33.8%)
+2026-02-05 03:34:35,455 - ETL.load.load_fact_transactions - INFO -   → Batch 216 inséré: 10,000 transactions (2,160,000/6,362,620 - 33.9%)
+2026-02-05 03:34:36,251 - ETL.load.load_fact_transactions - INFO -   → Batch 217 inséré: 10,000 transactions (2,170,000/6,362,620 - 34.1%)
+2026-02-05 03:34:37,071 - ETL.load.load_fact_transactions - INFO -   → Batch 218 inséré: 10,000 transactions (2,180,000/6,362,620 - 34.3%)
+2026-02-05 03:34:37,892 - ETL.load.load_fact_transactions - INFO -   → Batch 219 inséré: 10,000 transactions (2,190,000/6,362,620 - 34.4%)
+2026-02-05 03:34:38,653 - ETL.load.load_fact_transactions - INFO -   → Batch 220 inséré: 10,000 transactions (2,200,000/6,362,620 - 34.6%)
+2026-02-05 03:34:39,490 - ETL.load.load_fact_transactions - INFO -   → Batch 221 inséré: 10,000 transactions (2,210,000/6,362,620 - 34.7%)
+2026-02-05 03:34:40,352 - ETL.load.load_fact_transactions - INFO -   → Batch 222 inséré: 10,000 transactions (2,220,000/6,362,620 - 34.9%)
+2026-02-05 03:34:41,196 - ETL.load.load_fact_transactions - INFO -   → Batch 223 inséré: 10,000 transactions (2,230,000/6,362,620 - 35.0%)
+2026-02-05 03:34:42,146 - ETL.load.load_fact_transactions - INFO -   → Batch 224 inséré: 10,000 transactions (2,240,000/6,362,620 - 35.2%)
+2026-02-05 03:34:43,045 - ETL.load.load_fact_transactions - INFO -   → Batch 225 inséré: 10,000 transactions (2,250,000/6,362,620 - 35.4%)
+2026-02-05 03:34:43,876 - ETL.load.load_fact_transactions - INFO -   → Batch 226 inséré: 10,000 transactions (2,260,000/6,362,620 - 35.5%)
+2026-02-05 03:34:44,667 - ETL.load.load_fact_transactions - INFO -   → Batch 227 inséré: 10,000 transactions (2,270,000/6,362,620 - 35.7%)
+2026-02-05 03:34:45,437 - ETL.load.load_fact_transactions - INFO -   → Batch 228 inséré: 10,000 transactions (2,280,000/6,362,620 - 35.8%)
+2026-02-05 03:34:46,308 - ETL.load.load_fact_transactions - INFO -   → Batch 229 inséré: 10,000 transactions (2,290,000/6,362,620 - 36.0%)
+2026-02-05 03:34:47,198 - ETL.load.load_fact_transactions - INFO -   → Batch 230 inséré: 10,000 transactions (2,300,000/6,362,620 - 36.1%)
+2026-02-05 03:34:48,113 - ETL.load.load_fact_transactions - INFO -   → Batch 231 inséré: 10,000 transactions (2,310,000/6,362,620 - 36.3%)
+2026-02-05 03:34:48,964 - ETL.load.load_fact_transactions - INFO -   → Batch 232 inséré: 10,000 transactions (2,320,000/6,362,620 - 36.5%)
+2026-02-05 03:34:49,771 - ETL.load.load_fact_transactions - INFO -   → Batch 233 inséré: 10,000 transactions (2,330,000/6,362,620 - 36.6%)
+2026-02-05 03:34:50,516 - ETL.load.load_fact_transactions - INFO -   → Batch 234 inséré: 10,000 transactions (2,340,000/6,362,620 - 36.8%)
+2026-02-05 03:34:51,394 - ETL.load.load_fact_transactions - INFO -   → Batch 235 inséré: 10,000 transactions (2,350,000/6,362,620 - 36.9%)
+2026-02-05 03:34:52,261 - ETL.load.load_fact_transactions - INFO -   → Batch 236 inséré: 10,000 transactions (2,360,000/6,362,620 - 37.1%)
+2026-02-05 03:34:53,184 - ETL.load.load_fact_transactions - INFO -   → Batch 237 inséré: 10,000 transactions (2,370,000/6,362,620 - 37.2%)
+2026-02-05 03:34:54,073 - ETL.load.load_fact_transactions - INFO -   → Batch 238 inséré: 10,000 transactions (2,380,000/6,362,620 - 37.4%)
+2026-02-05 03:34:54,967 - ETL.load.load_fact_transactions - INFO -   → Batch 239 inséré: 10,000 transactions (2,390,000/6,362,620 - 37.6%)
+2026-02-05 03:34:55,779 - ETL.load.load_fact_transactions - INFO -   → Batch 240 inséré: 10,000 transactions (2,400,000/6,362,620 - 37.7%)
+2026-02-05 03:34:56,723 - ETL.load.load_fact_transactions - INFO -   → Batch 241 inséré: 10,000 transactions (2,410,000/6,362,620 - 37.9%)
+2026-02-05 03:34:57,622 - ETL.load.load_fact_transactions - INFO -   → Batch 242 inséré: 10,000 transactions (2,420,000/6,362,620 - 38.0%)
+2026-02-05 03:34:58,494 - ETL.load.load_fact_transactions - INFO -   → Batch 243 inséré: 10,000 transactions (2,430,000/6,362,620 - 38.2%)
+2026-02-05 03:34:59,350 - ETL.load.load_fact_transactions - INFO -   → Batch 244 inséré: 10,000 transactions (2,440,000/6,362,620 - 38.3%)
+2026-02-05 03:35:00,203 - ETL.load.load_fact_transactions - INFO -   → Batch 245 inséré: 10,000 transactions (2,450,000/6,362,620 - 38.5%)
+2026-02-05 03:35:01,060 - ETL.load.load_fact_transactions - INFO -   → Batch 246 inséré: 10,000 transactions (2,460,000/6,362,620 - 38.7%)
+2026-02-05 03:35:01,885 - ETL.load.load_fact_transactions - INFO -   → Batch 247 inséré: 10,000 transactions (2,470,000/6,362,620 - 38.8%)
+2026-02-05 03:35:02,705 - ETL.load.load_fact_transactions - INFO -   → Batch 248 inséré: 10,000 transactions (2,480,000/6,362,620 - 39.0%)
+2026-02-05 03:35:03,553 - ETL.load.load_fact_transactions - INFO -   → Batch 249 inséré: 10,000 transactions (2,490,000/6,362,620 - 39.1%)
+2026-02-05 03:35:04,379 - ETL.load.load_fact_transactions - INFO -   → Batch 250 inséré: 10,000 transactions (2,500,000/6,362,620 - 39.3%)
+2026-02-05 03:35:05,260 - ETL.load.load_fact_transactions - INFO -   → Batch 251 inséré: 10,000 transactions (2,510,000/6,362,620 - 39.4%)
+2026-02-05 03:35:06,083 - ETL.load.load_fact_transactions - INFO -   → Batch 252 inséré: 10,000 transactions (2,520,000/6,362,620 - 39.6%)
+2026-02-05 03:35:06,988 - ETL.load.load_fact_transactions - INFO -   → Batch 253 inséré: 10,000 transactions (2,530,000/6,362,620 - 39.8%)
+2026-02-05 03:35:07,819 - ETL.load.load_fact_transactions - INFO -   → Batch 254 inséré: 10,000 transactions (2,540,000/6,362,620 - 39.9%)
+2026-02-05 03:35:08,654 - ETL.load.load_fact_transactions - INFO -   → Batch 255 inséré: 10,000 transactions (2,550,000/6,362,620 - 40.1%)
+2026-02-05 03:35:09,600 - ETL.load.load_fact_transactions - INFO -   → Batch 256 inséré: 10,000 transactions (2,560,000/6,362,620 - 40.2%)
+2026-02-05 03:35:10,419 - ETL.load.load_fact_transactions - INFO -   → Batch 257 inséré: 10,000 transactions (2,570,000/6,362,620 - 40.4%)
+2026-02-05 03:35:11,329 - ETL.load.load_fact_transactions - INFO -   → Batch 258 inséré: 10,000 transactions (2,580,000/6,362,620 - 40.5%)
+2026-02-05 03:35:12,162 - ETL.load.load_fact_transactions - INFO -   → Batch 259 inséré: 10,000 transactions (2,590,000/6,362,620 - 40.7%)
+2026-02-05 03:35:13,014 - ETL.load.load_fact_transactions - INFO -   → Batch 260 inséré: 10,000 transactions (2,600,000/6,362,620 - 40.9%)
+2026-02-05 03:35:13,854 - ETL.load.load_fact_transactions - INFO -   → Batch 261 inséré: 10,000 transactions (2,610,000/6,362,620 - 41.0%)
+2026-02-05 03:35:14,650 - ETL.load.load_fact_transactions - INFO -   → Batch 262 inséré: 10,000 transactions (2,620,000/6,362,620 - 41.2%)
+2026-02-05 03:35:15,462 - ETL.load.load_fact_transactions - INFO -   → Batch 263 inséré: 10,000 transactions (2,630,000/6,362,620 - 41.3%)
+2026-02-05 03:35:16,252 - ETL.load.load_fact_transactions - INFO -   → Batch 264 inséré: 10,000 transactions (2,640,000/6,362,620 - 41.5%)
+2026-02-05 03:35:17,166 - ETL.load.load_fact_transactions - INFO -   → Batch 265 inséré: 10,000 transactions (2,650,000/6,362,620 - 41.6%)
+2026-02-05 03:35:18,019 - ETL.load.load_fact_transactions - INFO -   → Batch 266 inséré: 10,000 transactions (2,660,000/6,362,620 - 41.8%)
+2026-02-05 03:35:18,801 - ETL.load.load_fact_transactions - INFO -   → Batch 267 inséré: 10,000 transactions (2,670,000/6,362,620 - 42.0%)
+2026-02-05 03:35:19,614 - ETL.load.load_fact_transactions - INFO -   → Batch 268 inséré: 10,000 transactions (2,680,000/6,362,620 - 42.1%)
+2026-02-05 03:35:20,401 - ETL.load.load_fact_transactions - INFO -   → Batch 269 inséré: 10,000 transactions (2,690,000/6,362,620 - 42.3%)
+2026-02-05 03:35:21,259 - ETL.load.load_fact_transactions - INFO -   → Batch 270 inséré: 10,000 transactions (2,700,000/6,362,620 - 42.4%)
+2026-02-05 03:35:22,141 - ETL.load.load_fact_transactions - INFO -   → Batch 271 inséré: 10,000 transactions (2,710,000/6,362,620 - 42.6%)
+2026-02-05 03:35:22,954 - ETL.load.load_fact_transactions - INFO -   → Batch 272 inséré: 10,000 transactions (2,720,000/6,362,620 - 42.7%)
+2026-02-05 03:35:23,856 - ETL.load.load_fact_transactions - INFO -   → Batch 273 inséré: 10,000 transactions (2,730,000/6,362,620 - 42.9%)
+2026-02-05 03:35:24,744 - ETL.load.load_fact_transactions - INFO -   → Batch 274 inséré: 10,000 transactions (2,740,000/6,362,620 - 43.1%)
+2026-02-05 03:35:25,520 - ETL.load.load_fact_transactions - INFO -   → Batch 275 inséré: 10,000 transactions (2,750,000/6,362,620 - 43.2%)
+2026-02-05 03:35:26,469 - ETL.load.load_fact_transactions - INFO -   → Batch 276 inséré: 10,000 transactions (2,760,000/6,362,620 - 43.4%)
+2026-02-05 03:35:27,299 - ETL.load.load_fact_transactions - INFO -   → Batch 277 inséré: 10,000 transactions (2,770,000/6,362,620 - 43.5%)
+2026-02-05 03:35:28,151 - ETL.load.load_fact_transactions - INFO -   → Batch 278 inséré: 10,000 transactions (2,780,000/6,362,620 - 43.7%)
+2026-02-05 03:35:28,974 - ETL.load.load_fact_transactions - INFO -   → Batch 279 inséré: 10,000 transactions (2,790,000/6,362,620 - 43.8%)
+2026-02-05 03:35:29,873 - ETL.load.load_fact_transactions - INFO -   → Batch 280 inséré: 10,000 transactions (2,800,000/6,362,620 - 44.0%)
+2026-02-05 03:35:30,816 - ETL.load.load_fact_transactions - INFO -   → Batch 281 inséré: 10,000 transactions (2,810,000/6,362,620 - 44.2%)
+2026-02-05 03:35:31,854 - ETL.load.load_fact_transactions - INFO -   → Batch 282 inséré: 10,000 transactions (2,820,000/6,362,620 - 44.3%)
+2026-02-05 03:35:32,838 - ETL.load.load_fact_transactions - INFO -   → Batch 283 inséré: 10,000 transactions (2,830,000/6,362,620 - 44.5%)
+2026-02-05 03:35:33,756 - ETL.load.load_fact_transactions - INFO -   → Batch 284 inséré: 10,000 transactions (2,840,000/6,362,620 - 44.6%)
+2026-02-05 03:35:34,667 - ETL.load.load_fact_transactions - INFO -   → Batch 285 inséré: 10,000 transactions (2,850,000/6,362,620 - 44.8%)
+2026-02-05 03:35:35,571 - ETL.load.load_fact_transactions - INFO -   → Batch 286 inséré: 10,000 transactions (2,860,000/6,362,620 - 45.0%)
+2026-02-05 03:35:36,430 - ETL.load.load_fact_transactions - INFO -   → Batch 287 inséré: 10,000 transactions (2,870,000/6,362,620 - 45.1%)
+2026-02-05 03:35:37,265 - ETL.load.load_fact_transactions - INFO -   → Batch 288 inséré: 10,000 transactions (2,880,000/6,362,620 - 45.3%)
+2026-02-05 03:35:38,099 - ETL.load.load_fact_transactions - INFO -   → Batch 289 inséré: 10,000 transactions (2,890,000/6,362,620 - 45.4%)
+2026-02-05 03:35:38,920 - ETL.load.load_fact_transactions - INFO -   → Batch 290 inséré: 10,000 transactions (2,900,000/6,362,620 - 45.6%)
+2026-02-05 03:35:39,759 - ETL.load.load_fact_transactions - INFO -   → Batch 291 inséré: 10,000 transactions (2,910,000/6,362,620 - 45.7%)
+2026-02-05 03:35:40,543 - ETL.load.load_fact_transactions - INFO -   → Batch 292 inséré: 10,000 transactions (2,920,000/6,362,620 - 45.9%)
+2026-02-05 03:35:41,453 - ETL.load.load_fact_transactions - INFO -   → Batch 293 inséré: 10,000 transactions (2,930,000/6,362,620 - 46.1%)
+2026-02-05 03:35:42,346 - ETL.load.load_fact_transactions - INFO -   → Batch 294 inséré: 10,000 transactions (2,940,000/6,362,620 - 46.2%)
+2026-02-05 03:35:43,204 - ETL.load.load_fact_transactions - INFO -   → Batch 295 inséré: 10,000 transactions (2,950,000/6,362,620 - 46.4%)
+2026-02-05 03:35:44,102 - ETL.load.load_fact_transactions - INFO -   → Batch 296 inséré: 10,000 transactions (2,960,000/6,362,620 - 46.5%)
+2026-02-05 03:35:44,962 - ETL.load.load_fact_transactions - INFO -   → Batch 297 inséré: 10,000 transactions (2,970,000/6,362,620 - 46.7%)
+2026-02-05 03:35:45,712 - ETL.load.load_fact_transactions - INFO -   → Batch 298 inséré: 10,000 transactions (2,980,000/6,362,620 - 46.8%)
+2026-02-05 03:35:46,505 - ETL.load.load_fact_transactions - INFO -   → Batch 299 inséré: 10,000 transactions (2,990,000/6,362,620 - 47.0%)
+2026-02-05 03:35:47,414 - ETL.load.load_fact_transactions - INFO -   → Batch 300 inséré: 10,000 transactions (3,000,000/6,362,620 - 47.2%)
+2026-02-05 03:35:48,375 - ETL.load.load_fact_transactions - INFO -   → Batch 301 inséré: 10,000 transactions (3,010,000/6,362,620 - 47.3%)
+2026-02-05 03:35:49,352 - ETL.load.load_fact_transactions - INFO -   → Batch 302 inséré: 10,000 transactions (3,020,000/6,362,620 - 47.5%)
+2026-02-05 03:35:50,209 - ETL.load.load_fact_transactions - INFO -   → Batch 303 inséré: 10,000 transactions (3,030,000/6,362,620 - 47.6%)
+2026-02-05 03:35:51,093 - ETL.load.load_fact_transactions - INFO -   → Batch 304 inséré: 10,000 transactions (3,040,000/6,362,620 - 47.8%)
+2026-02-05 03:35:52,047 - ETL.load.load_fact_transactions - INFO -   → Batch 305 inséré: 10,000 transactions (3,050,000/6,362,620 - 47.9%)
+2026-02-05 03:35:52,988 - ETL.load.load_fact_transactions - INFO -   → Batch 306 inséré: 10,000 transactions (3,060,000/6,362,620 - 48.1%)
+2026-02-05 03:35:53,861 - ETL.load.load_fact_transactions - INFO -   → Batch 307 inséré: 10,000 transactions (3,070,000/6,362,620 - 48.3%)
+2026-02-05 03:35:54,690 - ETL.load.load_fact_transactions - INFO -   → Batch 308 inséré: 10,000 transactions (3,080,000/6,362,620 - 48.4%)
+2026-02-05 03:35:55,472 - ETL.load.load_fact_transactions - INFO -   → Batch 309 inséré: 10,000 transactions (3,090,000/6,362,620 - 48.6%)
+2026-02-05 03:35:56,240 - ETL.load.load_fact_transactions - INFO -   → Batch 310 inséré: 10,000 transactions (3,100,000/6,362,620 - 48.7%)
+2026-02-05 03:35:57,172 - ETL.load.load_fact_transactions - INFO -   → Batch 311 inséré: 10,000 transactions (3,110,000/6,362,620 - 48.9%)
+2026-02-05 03:35:58,001 - ETL.load.load_fact_transactions - INFO -   → Batch 312 inséré: 10,000 transactions (3,120,000/6,362,620 - 49.0%)
+2026-02-05 03:35:58,829 - ETL.load.load_fact_transactions - INFO -   → Batch 313 inséré: 10,000 transactions (3,130,000/6,362,620 - 49.2%)
+2026-02-05 03:35:59,655 - ETL.load.load_fact_transactions - INFO -   → Batch 314 inséré: 10,000 transactions (3,140,000/6,362,620 - 49.4%)
+2026-02-05 03:36:00,481 - ETL.load.load_fact_transactions - INFO -   → Batch 315 inséré: 10,000 transactions (3,150,000/6,362,620 - 49.5%)
+2026-02-05 03:36:01,437 - ETL.load.load_fact_transactions - INFO -   → Batch 316 inséré: 10,000 transactions (3,160,000/6,362,620 - 49.7%)
+2026-02-05 03:36:02,322 - ETL.load.load_fact_transactions - INFO -   → Batch 317 inséré: 10,000 transactions (3,170,000/6,362,620 - 49.8%)
+2026-02-05 03:36:03,211 - ETL.load.load_fact_transactions - INFO -   → Batch 318 inséré: 10,000 transactions (3,180,000/6,362,620 - 50.0%)
+2026-02-05 03:36:04,175 - ETL.load.load_fact_transactions - INFO -   → Batch 319 inséré: 10,000 transactions (3,190,000/6,362,620 - 50.1%)
+2026-02-05 03:36:05,227 - ETL.load.load_fact_transactions - INFO -   → Batch 320 inséré: 10,000 transactions (3,200,000/6,362,620 - 50.3%)
+2026-02-05 03:36:06,268 - ETL.load.load_fact_transactions - INFO -   → Batch 321 inséré: 10,000 transactions (3,210,000/6,362,620 - 50.5%)
+2026-02-05 03:36:07,231 - ETL.load.load_fact_transactions - INFO -   → Batch 322 inséré: 10,000 transactions (3,220,000/6,362,620 - 50.6%)
+2026-02-05 03:36:08,142 - ETL.load.load_fact_transactions - INFO -   → Batch 323 inséré: 10,000 transactions (3,230,000/6,362,620 - 50.8%)
+2026-02-05 03:36:09,021 - ETL.load.load_fact_transactions - INFO -   → Batch 324 inséré: 10,000 transactions (3,240,000/6,362,620 - 50.9%)
+2026-02-05 03:36:10,091 - ETL.load.load_fact_transactions - INFO -   → Batch 325 inséré: 10,000 transactions (3,250,000/6,362,620 - 51.1%)
+2026-02-05 03:36:11,159 - ETL.load.load_fact_transactions - INFO -   → Batch 326 inséré: 10,000 transactions (3,260,000/6,362,620 - 51.2%)
+2026-02-05 03:36:12,210 - ETL.load.load_fact_transactions - INFO -   → Batch 327 inséré: 10,000 transactions (3,270,000/6,362,620 - 51.4%)
+2026-02-05 03:36:13,146 - ETL.load.load_fact_transactions - INFO -   → Batch 328 inséré: 10,000 transactions (3,280,000/6,362,620 - 51.6%)
+2026-02-05 03:36:14,104 - ETL.load.load_fact_transactions - INFO -   → Batch 329 inséré: 10,000 transactions (3,290,000/6,362,620 - 51.7%)
+2026-02-05 03:36:15,019 - ETL.load.load_fact_transactions - INFO -   → Batch 330 inséré: 10,000 transactions (3,300,000/6,362,620 - 51.9%)
+2026-02-05 03:36:15,876 - ETL.load.load_fact_transactions - INFO -   → Batch 331 inséré: 10,000 transactions (3,310,000/6,362,620 - 52.0%)
+2026-02-05 03:36:16,761 - ETL.load.load_fact_transactions - INFO -   → Batch 332 inséré: 10,000 transactions (3,320,000/6,362,620 - 52.2%)
+2026-02-05 03:36:17,619 - ETL.load.load_fact_transactions - INFO -   → Batch 333 inséré: 10,000 transactions (3,330,000/6,362,620 - 52.3%)
+2026-02-05 03:36:18,589 - ETL.load.load_fact_transactions - INFO -   → Batch 334 inséré: 10,000 transactions (3,340,000/6,362,620 - 52.5%)
+2026-02-05 03:36:19,505 - ETL.load.load_fact_transactions - INFO -   → Batch 335 inséré: 10,000 transactions (3,350,000/6,362,620 - 52.7%)
+2026-02-05 03:36:20,383 - ETL.load.load_fact_transactions - INFO -   → Batch 336 inséré: 10,000 transactions (3,360,000/6,362,620 - 52.8%)
+2026-02-05 03:36:21,284 - ETL.load.load_fact_transactions - INFO -   → Batch 337 inséré: 10,000 transactions (3,370,000/6,362,620 - 53.0%)
+2026-02-05 03:36:22,226 - ETL.load.load_fact_transactions - INFO -   → Batch 338 inséré: 10,000 transactions (3,380,000/6,362,620 - 53.1%)
+2026-02-05 03:36:23,113 - ETL.load.load_fact_transactions - INFO -   → Batch 339 inséré: 10,000 transactions (3,390,000/6,362,620 - 53.3%)
+2026-02-05 03:36:23,983 - ETL.load.load_fact_transactions - INFO -   → Batch 340 inséré: 10,000 transactions (3,400,000/6,362,620 - 53.4%)
+2026-02-05 03:36:24,906 - ETL.load.load_fact_transactions - INFO -   → Batch 341 inséré: 10,000 transactions (3,410,000/6,362,620 - 53.6%)
+2026-02-05 03:36:25,747 - ETL.load.load_fact_transactions - INFO -   → Batch 342 inséré: 10,000 transactions (3,420,000/6,362,620 - 53.8%)
+2026-02-05 03:36:26,598 - ETL.load.load_fact_transactions - INFO -   → Batch 343 inséré: 10,000 transactions (3,430,000/6,362,620 - 53.9%)
+2026-02-05 03:36:27,606 - ETL.load.load_fact_transactions - INFO -   → Batch 344 inséré: 10,000 transactions (3,440,000/6,362,620 - 54.1%)
+2026-02-05 03:36:28,593 - ETL.load.load_fact_transactions - INFO -   → Batch 345 inséré: 10,000 transactions (3,450,000/6,362,620 - 54.2%)
+2026-02-05 03:36:29,678 - ETL.load.load_fact_transactions - INFO -   → Batch 346 inséré: 10,000 transactions (3,460,000/6,362,620 - 54.4%)
+2026-02-05 03:36:30,499 - ETL.load.load_fact_transactions - INFO -   → Batch 347 inséré: 10,000 transactions (3,470,000/6,362,620 - 54.5%)
+2026-02-05 03:36:31,402 - ETL.load.load_fact_transactions - INFO -   → Batch 348 inséré: 10,000 transactions (3,480,000/6,362,620 - 54.7%)
+2026-02-05 03:36:32,368 - ETL.load.load_fact_transactions - INFO -   → Batch 349 inséré: 10,000 transactions (3,490,000/6,362,620 - 54.9%)
+2026-02-05 03:36:33,336 - ETL.load.load_fact_transactions - INFO -   → Batch 350 inséré: 10,000 transactions (3,500,000/6,362,620 - 55.0%)
+2026-02-05 03:36:34,228 - ETL.load.load_fact_transactions - INFO -   → Batch 351 inséré: 10,000 transactions (3,510,000/6,362,620 - 55.2%)
+2026-02-05 03:36:35,357 - ETL.load.load_fact_transactions - INFO -   → Batch 352 inséré: 10,000 transactions (3,520,000/6,362,620 - 55.3%)
+2026-02-05 03:36:36,387 - ETL.load.load_fact_transactions - INFO -   → Batch 353 inséré: 10,000 transactions (3,530,000/6,362,620 - 55.5%)
+2026-02-05 03:36:37,373 - ETL.load.load_fact_transactions - INFO -   → Batch 354 inséré: 10,000 transactions (3,540,000/6,362,620 - 55.6%)
+2026-02-05 03:36:38,304 - ETL.load.load_fact_transactions - INFO -   → Batch 355 inséré: 10,000 transactions (3,550,000/6,362,620 - 55.8%)
+2026-02-05 03:36:39,250 - ETL.load.load_fact_transactions - INFO -   → Batch 356 inséré: 10,000 transactions (3,560,000/6,362,620 - 56.0%)
+2026-02-05 03:36:40,233 - ETL.load.load_fact_transactions - INFO -   → Batch 357 inséré: 10,000 transactions (3,570,000/6,362,620 - 56.1%)
+2026-02-05 03:36:41,112 - ETL.load.load_fact_transactions - INFO -   → Batch 358 inséré: 10,000 transactions (3,580,000/6,362,620 - 56.3%)
+2026-02-05 03:36:42,018 - ETL.load.load_fact_transactions - INFO -   → Batch 359 inséré: 10,000 transactions (3,590,000/6,362,620 - 56.4%)
+2026-02-05 03:36:42,897 - ETL.load.load_fact_transactions - INFO -   → Batch 360 inséré: 10,000 transactions (3,600,000/6,362,620 - 56.6%)
+2026-02-05 03:36:43,769 - ETL.load.load_fact_transactions - INFO -   → Batch 361 inséré: 10,000 transactions (3,610,000/6,362,620 - 56.7%)
+2026-02-05 03:36:44,718 - ETL.load.load_fact_transactions - INFO -   → Batch 362 inséré: 10,000 transactions (3,620,000/6,362,620 - 56.9%)
+2026-02-05 03:36:45,583 - ETL.load.load_fact_transactions - INFO -   → Batch 363 inséré: 10,000 transactions (3,630,000/6,362,620 - 57.1%)
+2026-02-05 03:36:46,455 - ETL.load.load_fact_transactions - INFO -   → Batch 364 inséré: 10,000 transactions (3,640,000/6,362,620 - 57.2%)
+2026-02-05 03:36:47,290 - ETL.load.load_fact_transactions - INFO -   → Batch 365 inséré: 10,000 transactions (3,650,000/6,362,620 - 57.4%)
+2026-02-05 03:36:48,206 - ETL.load.load_fact_transactions - INFO -   → Batch 366 inséré: 10,000 transactions (3,660,000/6,362,620 - 57.5%)
+2026-02-05 03:36:49,128 - ETL.load.load_fact_transactions - INFO -   → Batch 367 inséré: 10,000 transactions (3,670,000/6,362,620 - 57.7%)
+2026-02-05 03:36:50,014 - ETL.load.load_fact_transactions - INFO -   → Batch 368 inséré: 10,000 transactions (3,680,000/6,362,620 - 57.8%)
+2026-02-05 03:36:51,084 - ETL.load.load_fact_transactions - INFO -   → Batch 369 inséré: 10,000 transactions (3,690,000/6,362,620 - 58.0%)
+2026-02-05 03:36:52,123 - ETL.load.load_fact_transactions - INFO -   → Batch 370 inséré: 10,000 transactions (3,700,000/6,362,620 - 58.2%)
+2026-02-05 03:36:53,070 - ETL.load.load_fact_transactions - INFO -   → Batch 371 inséré: 10,000 transactions (3,710,000/6,362,620 - 58.3%)
+2026-02-05 03:36:54,016 - ETL.load.load_fact_transactions - INFO -   → Batch 372 inséré: 10,000 transactions (3,720,000/6,362,620 - 58.5%)
+2026-02-05 03:36:54,896 - ETL.load.load_fact_transactions - INFO -   → Batch 373 inséré: 10,000 transactions (3,730,000/6,362,620 - 58.6%)
+2026-02-05 03:36:55,773 - ETL.load.load_fact_transactions - INFO -   → Batch 374 inséré: 10,000 transactions (3,740,000/6,362,620 - 58.8%)
+2026-02-05 03:36:56,659 - ETL.load.load_fact_transactions - INFO -   → Batch 375 inséré: 10,000 transactions (3,750,000/6,362,620 - 58.9%)
+2026-02-05 03:36:57,611 - ETL.load.load_fact_transactions - INFO -   → Batch 376 inséré: 10,000 transactions (3,760,000/6,362,620 - 59.1%)
+2026-02-05 03:36:58,478 - ETL.load.load_fact_transactions - INFO -   → Batch 377 inséré: 10,000 transactions (3,770,000/6,362,620 - 59.3%)
+2026-02-05 03:36:59,332 - ETL.load.load_fact_transactions - INFO -   → Batch 378 inséré: 10,000 transactions (3,780,000/6,362,620 - 59.4%)
+2026-02-05 03:37:00,209 - ETL.load.load_fact_transactions - INFO -   → Batch 379 inséré: 10,000 transactions (3,790,000/6,362,620 - 59.6%)
+2026-02-05 03:37:01,104 - ETL.load.load_fact_transactions - INFO -   → Batch 380 inséré: 10,000 transactions (3,800,000/6,362,620 - 59.7%)
+2026-02-05 03:37:02,118 - ETL.load.load_fact_transactions - INFO -   → Batch 381 inséré: 10,000 transactions (3,810,000/6,362,620 - 59.9%)
+2026-02-05 03:37:03,126 - ETL.load.load_fact_transactions - INFO -   → Batch 382 inséré: 10,000 transactions (3,820,000/6,362,620 - 60.0%)
+2026-02-05 03:37:04,221 - ETL.load.load_fact_transactions - INFO -   → Batch 383 inséré: 10,000 transactions (3,830,000/6,362,620 - 60.2%)
+2026-02-05 03:37:05,402 - ETL.load.load_fact_transactions - INFO -   → Batch 384 inséré: 10,000 transactions (3,840,000/6,362,620 - 60.4%)
+2026-02-05 03:37:06,572 - ETL.load.load_fact_transactions - INFO -   → Batch 385 inséré: 10,000 transactions (3,850,000/6,362,620 - 60.5%)
+2026-02-05 03:37:07,859 - ETL.load.load_fact_transactions - INFO -   → Batch 386 inséré: 10,000 transactions (3,860,000/6,362,620 - 60.7%)
+2026-02-05 03:37:08,966 - ETL.load.load_fact_transactions - INFO -   → Batch 387 inséré: 10,000 transactions (3,870,000/6,362,620 - 60.8%)
+2026-02-05 03:37:09,998 - ETL.load.load_fact_transactions - INFO -   → Batch 388 inséré: 10,000 transactions (3,880,000/6,362,620 - 61.0%)
+2026-02-05 03:37:11,128 - ETL.load.load_fact_transactions - INFO -   → Batch 389 inséré: 10,000 transactions (3,890,000/6,362,620 - 61.1%)
+2026-02-05 03:37:12,209 - ETL.load.load_fact_transactions - INFO -   → Batch 390 inséré: 10,000 transactions (3,900,000/6,362,620 - 61.3%)
+2026-02-05 03:37:13,235 - ETL.load.load_fact_transactions - INFO -   → Batch 391 inséré: 10,000 transactions (3,910,000/6,362,620 - 61.5%)
+2026-02-05 03:37:14,186 - ETL.load.load_fact_transactions - INFO -   → Batch 392 inséré: 10,000 transactions (3,920,000/6,362,620 - 61.6%)
+2026-02-05 03:37:15,152 - ETL.load.load_fact_transactions - INFO -   → Batch 393 inséré: 10,000 transactions (3,930,000/6,362,620 - 61.8%)
+2026-02-05 03:37:16,047 - ETL.load.load_fact_transactions - INFO -   → Batch 394 inséré: 10,000 transactions (3,940,000/6,362,620 - 61.9%)
+2026-02-05 03:37:16,931 - ETL.load.load_fact_transactions - INFO -   → Batch 395 inséré: 10,000 transactions (3,950,000/6,362,620 - 62.1%)
+2026-02-05 03:37:17,825 - ETL.load.load_fact_transactions - INFO -   → Batch 396 inséré: 10,000 transactions (3,960,000/6,362,620 - 62.2%)
+2026-02-05 03:37:18,729 - ETL.load.load_fact_transactions - INFO -   → Batch 397 inséré: 10,000 transactions (3,970,000/6,362,620 - 62.4%)
+2026-02-05 03:37:19,671 - ETL.load.load_fact_transactions - INFO -   → Batch 398 inséré: 10,000 transactions (3,980,000/6,362,620 - 62.6%)
+2026-02-05 03:37:20,598 - ETL.load.load_fact_transactions - INFO -   → Batch 399 inséré: 10,000 transactions (3,990,000/6,362,620 - 62.7%)
+2026-02-05 03:37:21,640 - ETL.load.load_fact_transactions - INFO -   → Batch 400 inséré: 10,000 transactions (4,000,000/6,362,620 - 62.9%)
+2026-02-05 03:37:22,643 - ETL.load.load_fact_transactions - INFO -   → Batch 401 inséré: 10,000 transactions (4,010,000/6,362,620 - 63.0%)
+2026-02-05 03:37:23,655 - ETL.load.load_fact_transactions - INFO -   → Batch 402 inséré: 10,000 transactions (4,020,000/6,362,620 - 63.2%)
+2026-02-05 03:37:24,746 - ETL.load.load_fact_transactions - INFO -   → Batch 403 inséré: 10,000 transactions (4,030,000/6,362,620 - 63.3%)
+2026-02-05 03:37:25,824 - ETL.load.load_fact_transactions - INFO -   → Batch 404 inséré: 10,000 transactions (4,040,000/6,362,620 - 63.5%)
+2026-02-05 03:37:27,039 - ETL.load.load_fact_transactions - INFO -   → Batch 405 inséré: 10,000 transactions (4,050,000/6,362,620 - 63.7%)
+2026-02-05 03:37:28,113 - ETL.load.load_fact_transactions - INFO -   → Batch 406 inséré: 10,000 transactions (4,060,000/6,362,620 - 63.8%)
+2026-02-05 03:37:29,092 - ETL.load.load_fact_transactions - INFO -   → Batch 407 inséré: 10,000 transactions (4,070,000/6,362,620 - 64.0%)
+2026-02-05 03:37:30,082 - ETL.load.load_fact_transactions - INFO -   → Batch 408 inséré: 10,000 transactions (4,080,000/6,362,620 - 64.1%)
+2026-02-05 03:37:30,999 - ETL.load.load_fact_transactions - INFO -   → Batch 409 inséré: 10,000 transactions (4,090,000/6,362,620 - 64.3%)
+2026-02-05 03:37:31,943 - ETL.load.load_fact_transactions - INFO -   → Batch 410 inséré: 10,000 transactions (4,100,000/6,362,620 - 64.4%)
+2026-02-05 03:37:33,048 - ETL.load.load_fact_transactions - INFO -   → Batch 411 inséré: 10,000 transactions (4,110,000/6,362,620 - 64.6%)
+2026-02-05 03:37:34,097 - ETL.load.load_fact_transactions - INFO -   → Batch 412 inséré: 10,000 transactions (4,120,000/6,362,620 - 64.8%)
+2026-02-05 03:37:35,354 - ETL.load.load_fact_transactions - INFO -   → Batch 413 inséré: 10,000 transactions (4,130,000/6,362,620 - 64.9%)
+2026-02-05 03:37:36,494 - ETL.load.load_fact_transactions - INFO -   → Batch 414 inséré: 10,000 transactions (4,140,000/6,362,620 - 65.1%)
+2026-02-05 03:37:37,514 - ETL.load.load_fact_transactions - INFO -   → Batch 415 inséré: 10,000 transactions (4,150,000/6,362,620 - 65.2%)
+2026-02-05 03:37:38,532 - ETL.load.load_fact_transactions - INFO -   → Batch 416 inséré: 10,000 transactions (4,160,000/6,362,620 - 65.4%)
+2026-02-05 03:37:39,496 - ETL.load.load_fact_transactions - INFO -   → Batch 417 inséré: 10,000 transactions (4,170,000/6,362,620 - 65.5%)
+2026-02-05 03:37:40,540 - ETL.load.load_fact_transactions - INFO -   → Batch 418 inséré: 10,000 transactions (4,180,000/6,362,620 - 65.7%)
+2026-02-05 03:37:41,628 - ETL.load.load_fact_transactions - INFO -   → Batch 419 inséré: 10,000 transactions (4,190,000/6,362,620 - 65.9%)
+2026-02-05 03:37:42,632 - ETL.load.load_fact_transactions - INFO -   → Batch 420 inséré: 10,000 transactions (4,200,000/6,362,620 - 66.0%)
+2026-02-05 03:37:43,677 - ETL.load.load_fact_transactions - INFO -   → Batch 421 inséré: 10,000 transactions (4,210,000/6,362,620 - 66.2%)
+2026-02-05 03:37:44,599 - ETL.load.load_fact_transactions - INFO -   → Batch 422 inséré: 10,000 transactions (4,220,000/6,362,620 - 66.3%)
+2026-02-05 03:37:45,560 - ETL.load.load_fact_transactions - INFO -   → Batch 423 inséré: 10,000 transactions (4,230,000/6,362,620 - 66.5%)
+2026-02-05 03:37:46,515 - ETL.load.load_fact_transactions - INFO -   → Batch 424 inséré: 10,000 transactions (4,240,000/6,362,620 - 66.6%)
+2026-02-05 03:37:47,440 - ETL.load.load_fact_transactions - INFO -   → Batch 425 inséré: 10,000 transactions (4,250,000/6,362,620 - 66.8%)
+2026-02-05 03:37:48,587 - ETL.load.load_fact_transactions - INFO -   → Batch 426 inséré: 10,000 transactions (4,260,000/6,362,620 - 67.0%)
+2026-02-05 03:37:49,576 - ETL.load.load_fact_transactions - INFO -   → Batch 427 inséré: 10,000 transactions (4,270,000/6,362,620 - 67.1%)
+2026-02-05 03:37:50,654 - ETL.load.load_fact_transactions - INFO -   → Batch 428 inséré: 10,000 transactions (4,280,000/6,362,620 - 67.3%)
+2026-02-05 03:37:51,832 - ETL.load.load_fact_transactions - INFO -   → Batch 429 inséré: 10,000 transactions (4,290,000/6,362,620 - 67.4%)
+2026-02-05 03:37:52,916 - ETL.load.load_fact_transactions - INFO -   → Batch 430 inséré: 10,000 transactions (4,300,000/6,362,620 - 67.6%)
+2026-02-05 03:37:53,961 - ETL.load.load_fact_transactions - INFO -   → Batch 431 inséré: 10,000 transactions (4,310,000/6,362,620 - 67.7%)
+2026-02-05 03:37:55,015 - ETL.load.load_fact_transactions - INFO -   → Batch 432 inséré: 10,000 transactions (4,320,000/6,362,620 - 67.9%)
+2026-02-05 03:37:56,049 - ETL.load.load_fact_transactions - INFO -   → Batch 433 inséré: 10,000 transactions (4,330,000/6,362,620 - 68.1%)
+2026-02-05 03:37:56,960 - ETL.load.load_fact_transactions - INFO -   → Batch 434 inséré: 10,000 transactions (4,340,000/6,362,620 - 68.2%)
+2026-02-05 03:37:58,055 - ETL.load.load_fact_transactions - INFO -   → Batch 435 inséré: 10,000 transactions (4,350,000/6,362,620 - 68.4%)
+2026-02-05 03:37:59,180 - ETL.load.load_fact_transactions - INFO -   → Batch 436 inséré: 10,000 transactions (4,360,000/6,362,620 - 68.5%)
+2026-02-05 03:38:00,221 - ETL.load.load_fact_transactions - INFO -   → Batch 437 inséré: 10,000 transactions (4,370,000/6,362,620 - 68.7%)
+2026-02-05 03:38:01,420 - ETL.load.load_fact_transactions - INFO -   → Batch 438 inséré: 10,000 transactions (4,380,000/6,362,620 - 68.8%)
+2026-02-05 03:38:02,438 - ETL.load.load_fact_transactions - INFO -   → Batch 439 inséré: 10,000 transactions (4,390,000/6,362,620 - 69.0%)
+2026-02-05 03:38:03,795 - ETL.load.load_fact_transactions - INFO -   → Batch 440 inséré: 10,000 transactions (4,400,000/6,362,620 - 69.2%)
+2026-02-05 03:38:05,064 - ETL.load.load_fact_transactions - INFO -   → Batch 441 inséré: 10,000 transactions (4,410,000/6,362,620 - 69.3%)
+2026-02-05 03:38:06,352 - ETL.load.load_fact_transactions - INFO -   → Batch 442 inséré: 10,000 transactions (4,420,000/6,362,620 - 69.5%)
+2026-02-05 03:38:07,530 - ETL.load.load_fact_transactions - INFO -   → Batch 443 inséré: 10,000 transactions (4,430,000/6,362,620 - 69.6%)
+2026-02-05 03:38:08,637 - ETL.load.load_fact_transactions - INFO -   → Batch 444 inséré: 10,000 transactions (4,440,000/6,362,620 - 69.8%)
+2026-02-05 03:38:09,723 - ETL.load.load_fact_transactions - INFO -   → Batch 445 inséré: 10,000 transactions (4,450,000/6,362,620 - 69.9%)
+2026-02-05 03:38:10,838 - ETL.load.load_fact_transactions - INFO -   → Batch 446 inséré: 10,000 transactions (4,460,000/6,362,620 - 70.1%)
+2026-02-05 03:38:12,049 - ETL.load.load_fact_transactions - INFO -   → Batch 447 inséré: 10,000 transactions (4,470,000/6,362,620 - 70.3%)
+2026-02-05 03:38:13,050 - ETL.load.load_fact_transactions - INFO -   → Batch 448 inséré: 10,000 transactions (4,480,000/6,362,620 - 70.4%)
+2026-02-05 03:38:14,113 - ETL.load.load_fact_transactions - INFO -   → Batch 449 inséré: 10,000 transactions (4,490,000/6,362,620 - 70.6%)
+2026-02-05 03:38:15,170 - ETL.load.load_fact_transactions - INFO -   → Batch 450 inséré: 10,000 transactions (4,500,000/6,362,620 - 70.7%)
+2026-02-05 03:38:16,285 - ETL.load.load_fact_transactions - INFO -   → Batch 451 inséré: 10,000 transactions (4,510,000/6,362,620 - 70.9%)
+2026-02-05 03:38:17,309 - ETL.load.load_fact_transactions - INFO -   → Batch 452 inséré: 10,000 transactions (4,520,000/6,362,620 - 71.0%)
+2026-02-05 03:38:18,326 - ETL.load.load_fact_transactions - INFO -   → Batch 453 inséré: 10,000 transactions (4,530,000/6,362,620 - 71.2%)
+2026-02-05 03:38:19,495 - ETL.load.load_fact_transactions - INFO -   → Batch 454 inséré: 10,000 transactions (4,540,000/6,362,620 - 71.4%)
+2026-02-05 03:38:20,560 - ETL.load.load_fact_transactions - INFO -   → Batch 455 inséré: 10,000 transactions (4,550,000/6,362,620 - 71.5%)
+2026-02-05 03:38:21,900 - ETL.load.load_fact_transactions - INFO -   → Batch 456 inséré: 10,000 transactions (4,560,000/6,362,620 - 71.7%)
+2026-02-05 03:38:22,950 - ETL.load.load_fact_transactions - INFO -   → Batch 457 inséré: 10,000 transactions (4,570,000/6,362,620 - 71.8%)
+2026-02-05 03:38:24,015 - ETL.load.load_fact_transactions - INFO -   → Batch 458 inséré: 10,000 transactions (4,580,000/6,362,620 - 72.0%)
+2026-02-05 03:38:25,360 - ETL.load.load_fact_transactions - INFO -   → Batch 459 inséré: 10,000 transactions (4,590,000/6,362,620 - 72.1%)
+2026-02-05 03:38:26,727 - ETL.load.load_fact_transactions - INFO -   → Batch 460 inséré: 10,000 transactions (4,600,000/6,362,620 - 72.3%)
+2026-02-05 03:38:28,018 - ETL.load.load_fact_transactions - INFO -   → Batch 461 inséré: 10,000 transactions (4,610,000/6,362,620 - 72.5%)
+2026-02-05 03:38:29,211 - ETL.load.load_fact_transactions - INFO -   → Batch 462 inséré: 10,000 transactions (4,620,000/6,362,620 - 72.6%)
+2026-02-05 03:38:30,263 - ETL.load.load_fact_transactions - INFO -   → Batch 463 inséré: 10,000 transactions (4,630,000/6,362,620 - 72.8%)
+2026-02-05 03:38:31,374 - ETL.load.load_fact_transactions - INFO -   → Batch 464 inséré: 10,000 transactions (4,640,000/6,362,620 - 72.9%)
+2026-02-05 03:38:32,519 - ETL.load.load_fact_transactions - INFO -   → Batch 465 inséré: 10,000 transactions (4,650,000/6,362,620 - 73.1%)
+2026-02-05 03:38:33,619 - ETL.load.load_fact_transactions - INFO -   → Batch 466 inséré: 10,000 transactions (4,660,000/6,362,620 - 73.2%)
+2026-02-05 03:38:34,666 - ETL.load.load_fact_transactions - INFO -   → Batch 467 inséré: 10,000 transactions (4,670,000/6,362,620 - 73.4%)
+2026-02-05 03:38:35,698 - ETL.load.load_fact_transactions - INFO -   → Batch 468 inséré: 10,000 transactions (4,680,000/6,362,620 - 73.6%)
+2026-02-05 03:38:36,770 - ETL.load.load_fact_transactions - INFO -   → Batch 469 inséré: 10,000 transactions (4,690,000/6,362,620 - 73.7%)
+2026-02-05 03:38:37,959 - ETL.load.load_fact_transactions - INFO -   → Batch 470 inséré: 10,000 transactions (4,700,000/6,362,620 - 73.9%)
+2026-02-05 03:38:39,097 - ETL.load.load_fact_transactions - INFO -   → Batch 471 inséré: 10,000 transactions (4,710,000/6,362,620 - 74.0%)
+2026-02-05 03:38:40,255 - ETL.load.load_fact_transactions - INFO -   → Batch 472 inséré: 10,000 transactions (4,720,000/6,362,620 - 74.2%)
+2026-02-05 03:38:41,382 - ETL.load.load_fact_transactions - INFO -   → Batch 473 inséré: 10,000 transactions (4,730,000/6,362,620 - 74.3%)
+2026-02-05 03:38:42,527 - ETL.load.load_fact_transactions - INFO -   → Batch 474 inséré: 10,000 transactions (4,740,000/6,362,620 - 74.5%)
+2026-02-05 03:38:43,695 - ETL.load.load_fact_transactions - INFO -   → Batch 475 inséré: 10,000 transactions (4,750,000/6,362,620 - 74.7%)
+2026-02-05 03:38:45,160 - ETL.load.load_fact_transactions - INFO -   → Batch 476 inséré: 10,000 transactions (4,760,000/6,362,620 - 74.8%)
+2026-02-05 03:38:46,119 - ETL.load.load_fact_transactions - INFO -   → Batch 477 inséré: 10,000 transactions (4,770,000/6,362,620 - 75.0%)
+2026-02-05 03:38:47,106 - ETL.load.load_fact_transactions - INFO -   → Batch 478 inséré: 10,000 transactions (4,780,000/6,362,620 - 75.1%)
+2026-02-05 03:38:48,130 - ETL.load.load_fact_transactions - INFO -   → Batch 479 inséré: 10,000 transactions (4,790,000/6,362,620 - 75.3%)
+2026-02-05 03:38:49,178 - ETL.load.load_fact_transactions - INFO -   → Batch 480 inséré: 10,000 transactions (4,800,000/6,362,620 - 75.4%)
+2026-02-05 03:38:50,480 - ETL.load.load_fact_transactions - INFO -   → Batch 481 inséré: 10,000 transactions (4,810,000/6,362,620 - 75.6%)
+2026-02-05 03:38:51,815 - ETL.load.load_fact_transactions - INFO -   → Batch 482 inséré: 10,000 transactions (4,820,000/6,362,620 - 75.8%)
+2026-02-05 03:38:53,400 - ETL.load.load_fact_transactions - INFO -   → Batch 483 inséré: 10,000 transactions (4,830,000/6,362,620 - 75.9%)
+2026-02-05 03:38:54,713 - ETL.load.load_fact_transactions - INFO -   → Batch 484 inséré: 10,000 transactions (4,840,000/6,362,620 - 76.1%)
+2026-02-05 03:38:55,837 - ETL.load.load_fact_transactions - INFO -   → Batch 485 inséré: 10,000 transactions (4,850,000/6,362,620 - 76.2%)
+2026-02-05 03:38:57,037 - ETL.load.load_fact_transactions - INFO -   → Batch 486 inséré: 10,000 transactions (4,860,000/6,362,620 - 76.4%)
+2026-02-05 03:38:58,174 - ETL.load.load_fact_transactions - INFO -   → Batch 487 inséré: 10,000 transactions (4,870,000/6,362,620 - 76.5%)
+2026-02-05 03:38:59,318 - ETL.load.load_fact_transactions - INFO -   → Batch 488 inséré: 10,000 transactions (4,880,000/6,362,620 - 76.7%)
+2026-02-05 03:39:00,376 - ETL.load.load_fact_transactions - INFO -   → Batch 489 inséré: 10,000 transactions (4,890,000/6,362,620 - 76.9%)
+2026-02-05 03:39:01,559 - ETL.load.load_fact_transactions - INFO -   → Batch 490 inséré: 10,000 transactions (4,900,000/6,362,620 - 77.0%)
+2026-02-05 03:39:02,725 - ETL.load.load_fact_transactions - INFO -   → Batch 491 inséré: 10,000 transactions (4,910,000/6,362,620 - 77.2%)
+2026-02-05 03:39:03,795 - ETL.load.load_fact_transactions - INFO -   → Batch 492 inséré: 10,000 transactions (4,920,000/6,362,620 - 77.3%)
+2026-02-05 03:39:04,908 - ETL.load.load_fact_transactions - INFO -   → Batch 493 inséré: 10,000 transactions (4,930,000/6,362,620 - 77.5%)
+2026-02-05 03:39:06,059 - ETL.load.load_fact_transactions - INFO -   → Batch 494 inséré: 10,000 transactions (4,940,000/6,362,620 - 77.6%)
+2026-02-05 03:39:07,205 - ETL.load.load_fact_transactions - INFO -   → Batch 495 inséré: 10,000 transactions (4,950,000/6,362,620 - 77.8%)
+2026-02-05 03:39:08,447 - ETL.load.load_fact_transactions - INFO -   → Batch 496 inséré: 10,000 transactions (4,960,000/6,362,620 - 78.0%)
+2026-02-05 03:39:09,962 - ETL.load.load_fact_transactions - INFO -   → Batch 497 inséré: 10,000 transactions (4,970,000/6,362,620 - 78.1%)
+2026-02-05 03:39:11,238 - ETL.load.load_fact_transactions - INFO -   → Batch 498 inséré: 10,000 transactions (4,980,000/6,362,620 - 78.3%)
+2026-02-05 03:39:12,372 - ETL.load.load_fact_transactions - INFO -   → Batch 499 inséré: 10,000 transactions (4,990,000/6,362,620 - 78.4%)
+2026-02-05 03:39:13,544 - ETL.load.load_fact_transactions - INFO -   → Batch 500 inséré: 10,000 transactions (5,000,000/6,362,620 - 78.6%)
+2026-02-05 03:39:14,857 - ETL.load.load_fact_transactions - INFO -   → Batch 501 inséré: 10,000 transactions (5,010,000/6,362,620 - 78.7%)
+2026-02-05 03:39:16,072 - ETL.load.load_fact_transactions - INFO -   → Batch 502 inséré: 10,000 transactions (5,020,000/6,362,620 - 78.9%)
+2026-02-05 03:39:17,244 - ETL.load.load_fact_transactions - INFO -   → Batch 503 inséré: 10,000 transactions (5,030,000/6,362,620 - 79.1%)
+2026-02-05 03:39:18,475 - ETL.load.load_fact_transactions - INFO -   → Batch 504 inséré: 10,000 transactions (5,040,000/6,362,620 - 79.2%)
+2026-02-05 03:39:19,737 - ETL.load.load_fact_transactions - INFO -   → Batch 505 inséré: 10,000 transactions (5,050,000/6,362,620 - 79.4%)
+2026-02-05 03:39:20,937 - ETL.load.load_fact_transactions - INFO -   → Batch 506 inséré: 10,000 transactions (5,060,000/6,362,620 - 79.5%)
+2026-02-05 03:39:22,170 - ETL.load.load_fact_transactions - INFO -   → Batch 507 inséré: 10,000 transactions (5,070,000/6,362,620 - 79.7%)
+2026-02-05 03:39:23,355 - ETL.load.load_fact_transactions - INFO -   → Batch 508 inséré: 10,000 transactions (5,080,000/6,362,620 - 79.8%)
+2026-02-05 03:39:24,543 - ETL.load.load_fact_transactions - INFO -   → Batch 509 inséré: 10,000 transactions (5,090,000/6,362,620 - 80.0%)
+2026-02-05 03:39:26,064 - ETL.load.load_fact_transactions - INFO -   → Batch 510 inséré: 10,000 transactions (5,100,000/6,362,620 - 80.2%)
+2026-02-05 03:39:27,184 - ETL.load.load_fact_transactions - INFO -   → Batch 511 inséré: 10,000 transactions (5,110,000/6,362,620 - 80.3%)
+2026-02-05 03:39:28,292 - ETL.load.load_fact_transactions - INFO -   → Batch 512 inséré: 10,000 transactions (5,120,000/6,362,620 - 80.5%)
+2026-02-05 03:39:29,412 - ETL.load.load_fact_transactions - INFO -   → Batch 513 inséré: 10,000 transactions (5,130,000/6,362,620 - 80.6%)
+2026-02-05 03:39:30,487 - ETL.load.load_fact_transactions - INFO -   → Batch 514 inséré: 10,000 transactions (5,140,000/6,362,620 - 80.8%)
+2026-02-05 03:39:31,588 - ETL.load.load_fact_transactions - INFO -   → Batch 515 inséré: 10,000 transactions (5,150,000/6,362,620 - 80.9%)
+2026-02-05 03:39:32,924 - ETL.load.load_fact_transactions - INFO -   → Batch 516 inséré: 10,000 transactions (5,160,000/6,362,620 - 81.1%)
+2026-02-05 03:39:34,140 - ETL.load.load_fact_transactions - INFO -   → Batch 517 inséré: 10,000 transactions (5,170,000/6,362,620 - 81.3%)
+2026-02-05 03:39:35,376 - ETL.load.load_fact_transactions - INFO -   → Batch 518 inséré: 10,000 transactions (5,180,000/6,362,620 - 81.4%)
+2026-02-05 03:39:36,504 - ETL.load.load_fact_transactions - INFO -   → Batch 519 inséré: 10,000 transactions (5,190,000/6,362,620 - 81.6%)
+2026-02-05 03:39:37,657 - ETL.load.load_fact_transactions - INFO -   → Batch 520 inséré: 10,000 transactions (5,200,000/6,362,620 - 81.7%)
+2026-02-05 03:39:38,991 - ETL.load.load_fact_transactions - INFO -   → Batch 521 inséré: 10,000 transactions (5,210,000/6,362,620 - 81.9%)
+2026-02-05 03:39:40,268 - ETL.load.load_fact_transactions - INFO -   → Batch 522 inséré: 10,000 transactions (5,220,000/6,362,620 - 82.0%)
+2026-02-05 03:39:41,684 - ETL.load.load_fact_transactions - INFO -   → Batch 523 inséré: 10,000 transactions (5,230,000/6,362,620 - 82.2%)
+2026-02-05 03:39:42,896 - ETL.load.load_fact_transactions - INFO -   → Batch 524 inséré: 10,000 transactions (5,240,000/6,362,620 - 82.4%)
+2026-02-05 03:39:44,130 - ETL.load.load_fact_transactions - INFO -   → Batch 525 inséré: 10,000 transactions (5,250,000/6,362,620 - 82.5%)
+2026-02-05 03:39:45,546 - ETL.load.load_fact_transactions - INFO -   → Batch 526 inséré: 10,000 transactions (5,260,000/6,362,620 - 82.7%)
+2026-02-05 03:39:46,795 - ETL.load.load_fact_transactions - INFO -   → Batch 527 inséré: 10,000 transactions (5,270,000/6,362,620 - 82.8%)
+2026-02-05 03:39:47,899 - ETL.load.load_fact_transactions - INFO -   → Batch 528 inséré: 10,000 transactions (5,280,000/6,362,620 - 83.0%)
+2026-02-05 03:39:48,992 - ETL.load.load_fact_transactions - INFO -   → Batch 529 inséré: 10,000 transactions (5,290,000/6,362,620 - 83.1%)
+2026-02-05 03:39:50,071 - ETL.load.load_fact_transactions - INFO -   → Batch 530 inséré: 10,000 transactions (5,300,000/6,362,620 - 83.3%)
+2026-02-05 03:39:51,164 - ETL.load.load_fact_transactions - INFO -   → Batch 531 inséré: 10,000 transactions (5,310,000/6,362,620 - 83.5%)
+2026-02-05 03:39:52,313 - ETL.load.load_fact_transactions - INFO -   → Batch 532 inséré: 10,000 transactions (5,320,000/6,362,620 - 83.6%)
+2026-02-05 03:39:53,429 - ETL.load.load_fact_transactions - INFO -   → Batch 533 inséré: 10,000 transactions (5,330,000/6,362,620 - 83.8%)
+2026-02-05 03:39:54,531 - ETL.load.load_fact_transactions - INFO -   → Batch 534 inséré: 10,000 transactions (5,340,000/6,362,620 - 83.9%)
+2026-02-05 03:39:55,916 - ETL.load.load_fact_transactions - INFO -   → Batch 535 inséré: 10,000 transactions (5,350,000/6,362,620 - 84.1%)
+2026-02-05 03:39:57,301 - ETL.load.load_fact_transactions - INFO -   → Batch 536 inséré: 10,000 transactions (5,360,000/6,362,620 - 84.2%)
+2026-02-05 03:39:58,366 - ETL.load.load_fact_transactions - INFO -   → Batch 537 inséré: 10,000 transactions (5,370,000/6,362,620 - 84.4%)
+2026-02-05 03:39:59,410 - ETL.load.load_fact_transactions - INFO -   → Batch 538 inséré: 10,000 transactions (5,380,000/6,362,620 - 84.6%)
+2026-02-05 03:40:00,584 - ETL.load.load_fact_transactions - INFO -   → Batch 539 inséré: 10,000 transactions (5,390,000/6,362,620 - 84.7%)
+2026-02-05 03:40:01,961 - ETL.load.load_fact_transactions - INFO -   → Batch 540 inséré: 10,000 transactions (5,400,000/6,362,620 - 84.9%)
+2026-02-05 03:40:03,241 - ETL.load.load_fact_transactions - INFO -   → Batch 541 inséré: 10,000 transactions (5,410,000/6,362,620 - 85.0%)
+2026-02-05 03:40:04,504 - ETL.load.load_fact_transactions - INFO -   → Batch 542 inséré: 10,000 transactions (5,420,000/6,362,620 - 85.2%)
+2026-02-05 03:40:05,680 - ETL.load.load_fact_transactions - INFO -   → Batch 543 inséré: 10,000 transactions (5,430,000/6,362,620 - 85.3%)
+2026-02-05 03:40:06,892 - ETL.load.load_fact_transactions - INFO -   → Batch 544 inséré: 10,000 transactions (5,440,000/6,362,620 - 85.5%)
+2026-02-05 03:40:08,083 - ETL.load.load_fact_transactions - INFO -   → Batch 545 inséré: 10,000 transactions (5,450,000/6,362,620 - 85.7%)
+2026-02-05 03:40:09,394 - ETL.load.load_fact_transactions - INFO -   → Batch 546 inséré: 10,000 transactions (5,460,000/6,362,620 - 85.8%)
+2026-02-05 03:40:10,669 - ETL.load.load_fact_transactions - INFO -   → Batch 547 inséré: 10,000 transactions (5,470,000/6,362,620 - 86.0%)
+2026-02-05 03:40:12,612 - ETL.load.load_fact_transactions - INFO -   → Batch 548 inséré: 10,000 transactions (5,480,000/6,362,620 - 86.1%)
+2026-02-05 03:40:13,957 - ETL.load.load_fact_transactions - INFO -   → Batch 549 inséré: 10,000 transactions (5,490,000/6,362,620 - 86.3%)
+2026-02-05 03:40:15,237 - ETL.load.load_fact_transactions - INFO -   → Batch 550 inséré: 10,000 transactions (5,500,000/6,362,620 - 86.4%)
+2026-02-05 03:40:16,519 - ETL.load.load_fact_transactions - INFO -   → Batch 551 inséré: 10,000 transactions (5,510,000/6,362,620 - 86.6%)
+2026-02-05 03:40:17,942 - ETL.load.load_fact_transactions - INFO -   → Batch 552 inséré: 10,000 transactions (5,520,000/6,362,620 - 86.8%)
+2026-02-05 03:40:19,467 - ETL.load.load_fact_transactions - INFO -   → Batch 553 inséré: 10,000 transactions (5,530,000/6,362,620 - 86.9%)
+2026-02-05 03:40:20,640 - ETL.load.load_fact_transactions - INFO -   → Batch 554 inséré: 10,000 transactions (5,540,000/6,362,620 - 87.1%)
+2026-02-05 03:40:21,764 - ETL.load.load_fact_transactions - INFO -   → Batch 555 inséré: 10,000 transactions (5,550,000/6,362,620 - 87.2%)
+2026-02-05 03:40:22,909 - ETL.load.load_fact_transactions - INFO -   → Batch 556 inséré: 10,000 transactions (5,560,000/6,362,620 - 87.4%)
+2026-02-05 03:40:24,177 - ETL.load.load_fact_transactions - INFO -   → Batch 557 inséré: 10,000 transactions (5,570,000/6,362,620 - 87.5%)
+2026-02-05 03:40:25,515 - ETL.load.load_fact_transactions - INFO -   → Batch 558 inséré: 10,000 transactions (5,580,000/6,362,620 - 87.7%)
+2026-02-05 03:40:26,774 - ETL.load.load_fact_transactions - INFO -   → Batch 559 inséré: 10,000 transactions (5,590,000/6,362,620 - 87.9%)
+2026-02-05 03:40:28,058 - ETL.load.load_fact_transactions - INFO -   → Batch 560 inséré: 10,000 transactions (5,600,000/6,362,620 - 88.0%)
+2026-02-05 03:40:29,955 - ETL.load.load_fact_transactions - INFO -   → Batch 561 inséré: 10,000 transactions (5,610,000/6,362,620 - 88.2%)
+2026-02-05 03:40:31,158 - ETL.load.load_fact_transactions - INFO -   → Batch 562 inséré: 10,000 transactions (5,620,000/6,362,620 - 88.3%)
+2026-02-05 03:40:32,396 - ETL.load.load_fact_transactions - INFO -   → Batch 563 inséré: 10,000 transactions (5,630,000/6,362,620 - 88.5%)
+2026-02-05 03:40:33,612 - ETL.load.load_fact_transactions - INFO -   → Batch 564 inséré: 10,000 transactions (5,640,000/6,362,620 - 88.6%)
+2026-02-05 03:40:34,866 - ETL.load.load_fact_transactions - INFO -   → Batch 565 inséré: 10,000 transactions (5,650,000/6,362,620 - 88.8%)
+2026-02-05 03:40:36,075 - ETL.load.load_fact_transactions - INFO -   → Batch 566 inséré: 10,000 transactions (5,660,000/6,362,620 - 89.0%)
+2026-02-05 03:40:37,252 - ETL.load.load_fact_transactions - INFO -   → Batch 567 inséré: 10,000 transactions (5,670,000/6,362,620 - 89.1%)
+2026-02-05 03:40:38,487 - ETL.load.load_fact_transactions - INFO -   → Batch 568 inséré: 10,000 transactions (5,680,000/6,362,620 - 89.3%)
+2026-02-05 03:40:39,727 - ETL.load.load_fact_transactions - INFO -   → Batch 569 inséré: 10,000 transactions (5,690,000/6,362,620 - 89.4%)
+2026-02-05 03:40:41,427 - ETL.load.load_fact_transactions - INFO -   → Batch 570 inséré: 10,000 transactions (5,700,000/6,362,620 - 89.6%)
+2026-02-05 03:40:42,988 - ETL.load.load_fact_transactions - INFO -   → Batch 571 inséré: 10,000 transactions (5,710,000/6,362,620 - 89.7%)
+2026-02-05 03:40:44,145 - ETL.load.load_fact_transactions - INFO -   → Batch 572 inséré: 10,000 transactions (5,720,000/6,362,620 - 89.9%)
+2026-02-05 03:40:45,649 - ETL.load.load_fact_transactions - INFO -   → Batch 573 inséré: 10,000 transactions (5,730,000/6,362,620 - 90.1%)
+2026-02-05 03:40:47,062 - ETL.load.load_fact_transactions - INFO -   → Batch 574 inséré: 10,000 transactions (5,740,000/6,362,620 - 90.2%)
+2026-02-05 03:40:48,368 - ETL.load.load_fact_transactions - INFO -   → Batch 575 inséré: 10,000 transactions (5,750,000/6,362,620 - 90.4%)
+2026-02-05 03:40:49,675 - ETL.load.load_fact_transactions - INFO -   → Batch 576 inséré: 10,000 transactions (5,760,000/6,362,620 - 90.5%)
+2026-02-05 03:40:50,833 - ETL.load.load_fact_transactions - INFO -   → Batch 577 inséré: 10,000 transactions (5,770,000/6,362,620 - 90.7%)
+2026-02-05 03:40:52,148 - ETL.load.load_fact_transactions - INFO -   → Batch 578 inséré: 10,000 transactions (5,780,000/6,362,620 - 90.8%)
+2026-02-05 03:40:53,412 - ETL.load.load_fact_transactions - INFO -   → Batch 579 inséré: 10,000 transactions (5,790,000/6,362,620 - 91.0%)
+2026-02-05 03:40:54,664 - ETL.load.load_fact_transactions - INFO -   → Batch 580 inséré: 10,000 transactions (5,800,000/6,362,620 - 91.2%)
+2026-02-05 03:40:56,008 - ETL.load.load_fact_transactions - INFO -   → Batch 581 inséré: 10,000 transactions (5,810,000/6,362,620 - 91.3%)
+2026-02-05 03:40:57,224 - ETL.load.load_fact_transactions - INFO -   → Batch 582 inséré: 10,000 transactions (5,820,000/6,362,620 - 91.5%)
+2026-02-05 03:40:58,393 - ETL.load.load_fact_transactions - INFO -   → Batch 583 inséré: 10,000 transactions (5,830,000/6,362,620 - 91.6%)
+2026-02-05 03:40:59,524 - ETL.load.load_fact_transactions - INFO -   → Batch 584 inséré: 10,000 transactions (5,840,000/6,362,620 - 91.8%)
+2026-02-05 03:41:00,958 - ETL.load.load_fact_transactions - INFO -   → Batch 585 inséré: 10,000 transactions (5,850,000/6,362,620 - 91.9%)
+2026-02-05 03:41:02,432 - ETL.load.load_fact_transactions - INFO -   → Batch 586 inséré: 10,000 transactions (5,860,000/6,362,620 - 92.1%)
+2026-02-05 03:41:03,768 - ETL.load.load_fact_transactions - INFO -   → Batch 587 inséré: 10,000 transactions (5,870,000/6,362,620 - 92.3%)
+2026-02-05 03:41:04,933 - ETL.load.load_fact_transactions - INFO -   → Batch 588 inséré: 10,000 transactions (5,880,000/6,362,620 - 92.4%)
+2026-02-05 03:41:06,156 - ETL.load.load_fact_transactions - INFO -   → Batch 589 inséré: 10,000 transactions (5,890,000/6,362,620 - 92.6%)
+2026-02-05 03:41:07,561 - ETL.load.load_fact_transactions - INFO -   → Batch 590 inséré: 10,000 transactions (5,900,000/6,362,620 - 92.7%)
+2026-02-05 03:41:08,907 - ETL.load.load_fact_transactions - INFO -   → Batch 591 inséré: 10,000 transactions (5,910,000/6,362,620 - 92.9%)
+2026-02-05 03:41:10,300 - ETL.load.load_fact_transactions - INFO -   → Batch 592 inséré: 10,000 transactions (5,920,000/6,362,620 - 93.0%)
+2026-02-05 03:41:11,780 - ETL.load.load_fact_transactions - INFO -   → Batch 593 inséré: 10,000 transactions (5,930,000/6,362,620 - 93.2%)
+2026-02-05 03:41:13,099 - ETL.load.load_fact_transactions - INFO -   → Batch 594 inséré: 10,000 transactions (5,940,000/6,362,620 - 93.4%)
+2026-02-05 03:41:14,357 - ETL.load.load_fact_transactions - INFO -   → Batch 595 inséré: 10,000 transactions (5,950,000/6,362,620 - 93.5%)
+2026-02-05 03:41:15,669 - ETL.load.load_fact_transactions - INFO -   → Batch 596 inséré: 10,000 transactions (5,960,000/6,362,620 - 93.7%)
+2026-02-05 03:41:16,994 - ETL.load.load_fact_transactions - INFO -   → Batch 597 inséré: 10,000 transactions (5,970,000/6,362,620 - 93.8%)
+2026-02-05 03:41:18,231 - ETL.load.load_fact_transactions - INFO -   → Batch 598 inséré: 10,000 transactions (5,980,000/6,362,620 - 94.0%)
+2026-02-05 03:41:19,313 - ETL.load.load_fact_transactions - INFO -   → Batch 599 inséré: 10,000 transactions (5,990,000/6,362,620 - 94.1%)
+2026-02-05 03:41:20,461 - ETL.load.load_fact_transactions - INFO -   → Batch 600 inséré: 10,000 transactions (6,000,000/6,362,620 - 94.3%)
+2026-02-05 03:41:21,700 - ETL.load.load_fact_transactions - INFO -   → Batch 601 inséré: 10,000 transactions (6,010,000/6,362,620 - 94.5%)
+2026-02-05 03:41:23,052 - ETL.load.load_fact_transactions - INFO -   → Batch 602 inséré: 10,000 transactions (6,020,000/6,362,620 - 94.6%)
+2026-02-05 03:41:24,543 - ETL.load.load_fact_transactions - INFO -   → Batch 603 inséré: 10,000 transactions (6,030,000/6,362,620 - 94.8%)
+2026-02-05 03:41:25,834 - ETL.load.load_fact_transactions - INFO -   → Batch 604 inséré: 10,000 transactions (6,040,000/6,362,620 - 94.9%)
+2026-02-05 03:41:27,005 - ETL.load.load_fact_transactions - INFO -   → Batch 605 inséré: 10,000 transactions (6,050,000/6,362,620 - 95.1%)
+2026-02-05 03:41:28,347 - ETL.load.load_fact_transactions - INFO -   → Batch 606 inséré: 10,000 transactions (6,060,000/6,362,620 - 95.2%)
+2026-02-05 03:41:29,525 - ETL.load.load_fact_transactions - INFO -   → Batch 607 inséré: 10,000 transactions (6,070,000/6,362,620 - 95.4%)
+2026-02-05 03:41:30,704 - ETL.load.load_fact_transactions - INFO -   → Batch 608 inséré: 10,000 transactions (6,080,000/6,362,620 - 95.6%)
+2026-02-05 03:41:32,035 - ETL.load.load_fact_transactions - INFO -   → Batch 609 inséré: 10,000 transactions (6,090,000/6,362,620 - 95.7%)
+2026-02-05 03:41:33,695 - ETL.load.load_fact_transactions - INFO -   → Batch 610 inséré: 10,000 transactions (6,100,000/6,362,620 - 95.9%)
+2026-02-05 03:41:35,141 - ETL.load.load_fact_transactions - INFO -   → Batch 611 inséré: 10,000 transactions (6,110,000/6,362,620 - 96.0%)
+2026-02-05 03:41:36,374 - ETL.load.load_fact_transactions - INFO -   → Batch 612 inséré: 10,000 transactions (6,120,000/6,362,620 - 96.2%)
+2026-02-05 03:41:37,628 - ETL.load.load_fact_transactions - INFO -   → Batch 613 inséré: 10,000 transactions (6,130,000/6,362,620 - 96.3%)
+2026-02-05 03:41:38,810 - ETL.load.load_fact_transactions - INFO -   → Batch 614 inséré: 10,000 transactions (6,140,000/6,362,620 - 96.5%)
+2026-02-05 03:41:39,997 - ETL.load.load_fact_transactions - INFO -   → Batch 615 inséré: 10,000 transactions (6,150,000/6,362,620 - 96.7%)
+2026-02-05 03:41:41,219 - ETL.load.load_fact_transactions - INFO -   → Batch 616 inséré: 10,000 transactions (6,160,000/6,362,620 - 96.8%)
+2026-02-05 03:41:42,338 - ETL.load.load_fact_transactions - INFO -   → Batch 617 inséré: 10,000 transactions (6,170,000/6,362,620 - 97.0%)
+2026-02-05 03:41:43,628 - ETL.load.load_fact_transactions - INFO -   → Batch 618 inséré: 10,000 transactions (6,180,000/6,362,620 - 97.1%)
+2026-02-05 03:41:44,870 - ETL.load.load_fact_transactions - INFO -   → Batch 619 inséré: 10,000 transactions (6,190,000/6,362,620 - 97.3%)
+2026-02-05 03:41:45,987 - ETL.load.load_fact_transactions - INFO -   → Batch 620 inséré: 10,000 transactions (6,200,000/6,362,620 - 97.4%)
+2026-02-05 03:41:47,283 - ETL.load.load_fact_transactions - INFO -   → Batch 621 inséré: 10,000 transactions (6,210,000/6,362,620 - 97.6%)
+2026-02-05 03:41:48,847 - ETL.load.load_fact_transactions - INFO -   → Batch 622 inséré: 10,000 transactions (6,220,000/6,362,620 - 97.8%)
+2026-02-05 03:41:50,326 - ETL.load.load_fact_transactions - INFO -   → Batch 623 inséré: 10,000 transactions (6,230,000/6,362,620 - 97.9%)
+2026-02-05 03:41:51,768 - ETL.load.load_fact_transactions - INFO -   → Batch 624 inséré: 10,000 transactions (6,240,000/6,362,620 - 98.1%)
+2026-02-05 03:41:53,138 - ETL.load.load_fact_transactions - INFO -   → Batch 625 inséré: 10,000 transactions (6,250,000/6,362,620 - 98.2%)
+2026-02-05 03:41:54,466 - ETL.load.load_fact_transactions - INFO -   → Batch 626 inséré: 10,000 transactions (6,260,000/6,362,620 - 98.4%)
+2026-02-05 03:41:55,762 - ETL.load.load_fact_transactions - INFO -   → Batch 627 inséré: 10,000 transactions (6,270,000/6,362,620 - 98.5%)
+2026-02-05 03:41:57,063 - ETL.load.load_fact_transactions - INFO -   → Batch 628 inséré: 10,000 transactions (6,280,000/6,362,620 - 98.7%)
+2026-02-05 03:41:58,394 - ETL.load.load_fact_transactions - INFO -   → Batch 629 inséré: 10,000 transactions (6,290,000/6,362,620 - 98.9%)
+2026-02-05 03:41:59,510 - ETL.load.load_fact_transactions - INFO -   → Batch 630 inséré: 10,000 transactions (6,300,000/6,362,620 - 99.0%)
+2026-02-05 03:42:00,726 - ETL.load.load_fact_transactions - INFO -   → Batch 631 inséré: 10,000 transactions (6,310,000/6,362,620 - 99.2%)
+2026-02-05 03:42:02,020 - ETL.load.load_fact_transactions - INFO -   → Batch 632 inséré: 10,000 transactions (6,320,000/6,362,620 - 99.3%)
+2026-02-05 03:42:03,462 - ETL.load.load_fact_transactions - INFO -   → Batch 633 inséré: 10,000 transactions (6,330,000/6,362,620 - 99.5%)
+2026-02-05 03:42:04,823 - ETL.load.load_fact_transactions - INFO -   → Batch 634 inséré: 10,000 transactions (6,340,000/6,362,620 - 99.6%)
+2026-02-05 03:42:06,020 - ETL.load.load_fact_transactions - INFO -   → Batch 635 inséré: 10,000 transactions (6,350,000/6,362,620 - 99.8%)
+2026-02-05 03:42:07,427 - ETL.load.load_fact_transactions - INFO -   → Batch 636 inséré: 10,000 transactions (6,360,000/6,362,620 - 100.0%)
+2026-02-05 03:42:07,697 - ETL.load.load_fact_transactions - INFO -   → Batch final 637 inséré: 2,620 transactions
+2026-02-05 03:42:07,697 - ETL.load.load_fact_transactions - INFO -   ✅ 6,362,620 transactions chargées dans fact_transactions (637 batches)
+2026-02-05 03:42:08,106 - __main__ - INFO -   ✅ fact_transactions chargé
+2026-02-05 03:42:08,106 - __main__ - INFO - ✅ [LOAD] Chargement terminé avec succès
+2026-02-05 03:42:08,106 - __main__ - INFO - 📊 [DATA MART] Construction du data mart ML...
+2026-02-05 03:42:08,118 - ETL.data_mart.build_ml_mart - INFO -   → Suppression de l'ancienne table transactions_ml_mart si elle existe...
+2026-02-05 03:42:08,130 - ETL.data_mart.build_ml_mart - INFO -   → Création de la table transactions_ml_mart...
+2026-02-05 03:42:16,193 - ETL.data_mart.build_ml_mart - INFO -   ✅ Table transactions_ml_mart créée: 6,362,620 lignes
+2026-02-05 03:42:16,194 - ETL.data_mart.build_ml_mart - INFO -   → Statistiques: 8,213 fraudes (0.13%), 6,354,407 transactions normales
+2026-02-05 03:42:16,195 - __main__ - INFO - ✅ [DATA MART] Data mart ML construit avec succès
+2026-02-05 03:42:16,195 - __main__ - INFO - ================================================================================
+2026-02-05 03:42:16,195 - __main__ - INFO - ✅ PIPELINE ETL TERMINÉ AVEC SUCCÈS
+2026-02-05 03:42:16,195 - __main__ - INFO - ⏱️  Durée totale: 4500.41 secondes
+2026-02-05 03:42:16,196 - __main__ - INFO - 📊 6,362,620 transactions traitées
+2026-02-05 03:42:16,196 - __main__ - INFO - ================================================================================

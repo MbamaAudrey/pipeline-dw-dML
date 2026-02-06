@@ -1,0 +1,22 @@
+# Install (from project root, with venv activated or via ./venv/bin/pip):
+#   pip install -r ml_pipeline/requirements.txt
+# If SSL error: pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r ml_pipeline/requirements.txt
+#
+# Core Python data
+pandas
+numpy
+
+# Database
+psycopg2-binary
+SQLAlchemy
+
+# Machine Learning
+scikit-learn
+joblib
+
+# Logging & utils
+python-dotenv
+
+# Optional (visualisation / debug local)
+matplotlib
+seaborn
